@@ -237,8 +237,7 @@ namespace EthereumWeb3ProtoClient
         async Task GethRpcTestRun()
         {
             Console.WriteLine("****** Running basic tests .....");
-            //Uri web3NodeUrl = new Uri("http://fdclbcvm.westeurope.cloudapp.azure.com:16969");
-            //string accountKeyPass = "Fdcl6969Lyon";
+           
 
             Uri web3NodeUrl = new Uri("http://192.168.92.104:16969");
             string accountKeyPass = "password";
