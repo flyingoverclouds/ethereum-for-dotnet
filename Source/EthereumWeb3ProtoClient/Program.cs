@@ -74,7 +74,7 @@ namespace EthereumWeb3ProtoClient
 
                 var accountBalance = await web3.Eth.GetBalanceAsync(addressFrom);
 
-                if (!await web3.Personal_UnlockAccountAsync(addressFrom, password))
+                if (!await web3.Personal.UnlockAccountAsync(addressFrom, password))
                 {
                     Console.WriteLine("ERROR : unable to unlock " + addressFrom);
                     return;
@@ -153,7 +153,7 @@ namespace EthereumWeb3ProtoClient
 
                 var accountBalance = await web3.Eth.GetBalanceAsync(addressFrom);
 
-                if (!await web3.Personal_UnlockAccountAsync(addressFrom, password))
+                if (!await web3.Personal.UnlockAccountAsync(addressFrom, password))
                 {
                     Console.WriteLine("ERROR : unable to unlock " + addressFrom);
                     return;
@@ -320,12 +320,12 @@ namespace EthereumWeb3ProtoClient
 
                 Console.WriteLine();
                 Console.WriteLine("PERSONAL: listAccounts :");
-                var accs = await nodeApi.Personal_ListAccounts();
+                var accs = await nodeApi.Personal.ListAccountsAsync();
                 foreach (var a in accs)
                 {
                     Console.WriteLine("              " + a);
                 }
-                Console.Write("PERSONAL: unlockAccount: " + await nodeApi.Personal_UnlockAccountAsync(accs[1], accountKeyPass, 10));
+                Console.Write("PERSONAL: unlockAccount: " + await nodeApi.Personal.UnlockAccountAsync(accs[1], accountKeyPass, 10));
 
 
             }

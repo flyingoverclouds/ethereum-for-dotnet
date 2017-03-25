@@ -15,7 +15,6 @@ namespace EthereumGethRpc
     /// </summary>
     public partial class GethRpcProxy : EthereumGethRpc.JsonRpcBase
     {
-
         public GethRpcProxy(Uri rpcEndpoint)
             :base(rpcEndpoint)
         {
@@ -24,6 +23,7 @@ namespace EthereumGethRpc
             this.Miner = new EthereumGethRpc.Api.GethRpcMinerApi(rpcEndpoint);
             this.Net = new EthereumGethRpc.Api.GethRpcNetApi(rpcEndpoint);
             this.Shh = new EthereumGethRpc.Api.GethRpcShhApi(rpcEndpoint);
+            this.Personal = new EthereumGethRpc.Api.GethRpcPersonalApi(rpcEndpoint);
         }
         
         /// <summary>
@@ -50,6 +50,12 @@ namespace EthereumGethRpc
         /// Access to SHH api of Geth
         /// </summary>
         public EthereumGethRpc.Api.GethRpcShhApi Shh { get; private set; }
+
+
+        /// <summary>
+        /// Access to PERSONAL api of Geth
+        /// </summary>
+        public EthereumGethRpc.Api.GethRpcPersonalApi Personal { get; private set; }
 
 
         /// <summary>

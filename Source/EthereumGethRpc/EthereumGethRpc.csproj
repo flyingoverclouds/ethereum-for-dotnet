@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\GethRpcPersonalApi.cs" />
     <Compile Include="Api\GethRpcWeb3Api.cs" />
     <Compile Include="DataModel\Abi.cs" />
     <Compile Include="DataModel\Block.cs" />
@@ -53,7 +54,6 @@
     <Compile Include="Api\GethRpcAdminApi.cs" />
     <Compile Include="Api\GethRpcEthApi.cs" />
     <Compile Include="GethRpcProxy.cs" />
-    <Compile Include="GethRpcProxy_Personal.cs" />
     <Compile Include="JsonRpcBase.cs" />
     <Compile Include="JsonRpcException.cs" />
     <Compile Include="DataModel\JsonRpcResult.cs" />
