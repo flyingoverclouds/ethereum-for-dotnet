@@ -67,7 +67,7 @@ namespace EthereumGethRpc
         /// Return activated API module with version
         /// </summary>
         /// <returns>Dictionnary<string,string> : key is module name, value is module version</string></returns>
-        public async Task<Dictionary<string,string>> GetModules()
+        public async Task<Dictionary<string,string>> GetModulesAsync()
         {
             string rpcReq = BuildRpcRequest("rpc_modules");
             var res = await ExecuteRpcRequestAsync<Dictionary<string, string>>(rpcReq);

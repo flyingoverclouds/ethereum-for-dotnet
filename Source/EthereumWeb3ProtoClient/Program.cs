@@ -18,39 +18,16 @@ namespace EthereumWeb3ProtoClient
 
             //prog.SingleAccountTransfer().GetAwaiter().GetResult();
 
-            //prog.DeployContract().GetAwaiter().GetResult();
+            prog.DeployContract().GetAwaiter().GetResult();
 
             //prog.GetTransactionData().GetAwaiter().GetResult();
-
-            prog.TestV2().GetAwaiter().GetResult();
-
+            
             Console.WriteLine("\r\nPRESS ENTER TO TERMINATE");
             Console.ReadLine();
         }
-        async Task TestV2()
-        {
-            try
-            {
-                Uri gethNodeUrl = new Uri("http://fdclbcvm.westeurope.cloudapp.azure.com:16969");
-                var geth = new GethRpcProxy(gethNodeUrl);
-
-                var modules = await geth.GetModules();
-                foreach (var m in modules)
-                {
-                    Console.WriteLine("              " + m);
-                }
-
-                Console.WriteLine("MODULES: ");
-                Console.WriteLine("DateDir=" + await geth.Admin.GetDataDir());
 
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("EXCEPTION : " + ex.ToString());
-            }
-        }
-            async Task DeployContract()
+        async Task DeployContract()
         {
             Console.WriteLine(">------- Contract Deployment :");
             try
@@ -61,10 +38,7 @@ namespace EthereumWeb3ProtoClient
                 var addressFrom = "0x12890d2cce102216644c59daE5baed380d84830c"; // PRECREDITED ACCOUNT IN DEV testchain CHAIN
                 var addressTo = "0x13f022d72158410433cbd66f5dd8bf6d2d129924";
                 var password = "password";
-
                 string amount = "0x1000";
-
-                // bytecode & abi generated using https://ethereum.github.io/browser-solidity/#version=soljson-v0.4.10+commit.f0d539ae.js
 
                 var jsonData = " { \"hash1\":\"hash2\"  }";
                 var hexData = jsonData.ToHex();
@@ -246,7 +220,7 @@ namespace EthereumWeb3ProtoClient
             try
             {
                 Console.WriteLine("MODULES: ");
-                var modules = await nodeApi.GetModules();
+                var modules = await nodeApi.GetModulesAsync();
                 foreach (var m in modules)
                 {
                     Console.WriteLine("              " + m);

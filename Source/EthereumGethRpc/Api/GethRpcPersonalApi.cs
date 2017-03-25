@@ -34,9 +34,16 @@ namespace EthereumGethRpc.Api
         }
 
 
+        /// <summary>
+        /// Unlock account address. 
+        /// </summary>
+        /// <param name="accountAddress">account address to unlock</param>
+        /// <param name="passphrase">password/passphrase </param>
+        /// <param name="duration">duration of unlock (in seconds)</param>
+        /// <returns></returns>
         public async Task<bool> UnlockAccountAsync(string accountAddress, string passphrase, int duration = 300)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"personal_unlockAccount\",\"params\":[ \"" + accountAddress + "\",\"" + passphrase + "\"," + duration + " ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("personal_unlockAccount", accountAddress, passphrase, duration);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }

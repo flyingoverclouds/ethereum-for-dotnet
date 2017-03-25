@@ -110,7 +110,7 @@ namespace EthereumGethRpc.Api
         public async Task<string> GetBalanceAsync(string accountId, string blockNumber = "latest")
         {
             // TODO : add support for int256 ( nuget BigMath ?)
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getBalance\",\"params\":[\"" + accountId + "\",\"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getBalance", accountId, blockNumber);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
@@ -389,7 +389,9 @@ namespace EthereumGethRpc.Api
         /// <returns>Transacation object if found, null if not found</returns>
         public async Task<Transaction> GetTransactionByHashAsync(string transactionHash)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"" + transactionHash + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"" + transactionHash + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getTransactionByHash", transactionHash);
+
             return await ExecuteRpcRequestAsync<Transaction>(rpcReq);
         }
 
@@ -414,7 +416,7 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<Transaction> GetTransactionByBlockNumberAndIndexAsync(string blockNumber, string transactionIndex)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockNumberAndIndex\",\"params\":[\"" + blockNumber + "\" , \"" + transactionIndex + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getTransactionByBlockNumberAndIndex", blockNumber, transactionIndex);
             return await ExecuteRpcRequestAsync<Transaction>(rpcReq);
         }
 

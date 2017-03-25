@@ -33,6 +33,10 @@ namespace EthereumGethRpc.Api
             return Convert.ToBoolean(result);
         }
 
+        /// <summary>
+        /// HACK / Should be replaced by usage of a big number library
+        /// </summary>
+        /// <returns></returns>
         public async Task<Int64> GetPeerCount()
         {
             string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
