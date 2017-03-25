@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EthereumGEthRpc
+namespace EthereumGethRpc
 {
     /// <summary>
     /// Simple Wrapper for Ethereum GETH Http RPC api (jsonrpc v2)

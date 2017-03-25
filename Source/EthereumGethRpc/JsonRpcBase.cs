@@ -1,5 +1,4 @@
 ﻿using EthereumGethRpc.DataModel;
-using EthereumGEthRpc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,5 @@
 ﻿using EthereumGethRpc;
 using EthereumGethRpc.DataModel;
-using EthereumGEthRpc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
