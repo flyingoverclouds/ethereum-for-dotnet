@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EthereumGethRpc.DataModel
 {
-    public class SyncingStatus
+    public class SyncingStatus : IGethApiObject
     {
         [JsonProperty("startingBlock")]
         public string StartingBlock { get; set; }

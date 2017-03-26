@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace EthereumGethRpc.DataModel
 {
-    public class JsonRpcResult<ResultT>
+
+    public class JsonRpcResult<ResultT> : IGethApiObject
     {
         [JsonProperty("jsonrpc")]
         public string RpcVersion { get; set; }

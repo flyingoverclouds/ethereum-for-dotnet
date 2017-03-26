@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace EthereumGethRpc.DataModel
 {
-    public class Abi
+
+    /// <summary>
+    /// NOT FULLY IMPLEMENTED
+    /// </summary>
+    public class Abi : IGethApiObject
     {
         // TODO : add property, cf https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_compilesolidity
 

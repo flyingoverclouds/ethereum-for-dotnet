@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace EthereumGethRpc.DataModel
 {
     [JsonObject("error")]
-    public class JsonRpcResultError
+    public class JsonRpcResultError : IGethApiObject
     {
         [JsonProperty("code")]
         public long Code { get; set; }

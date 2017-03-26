@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EthereumGethRpc.DataModel
 {
-    public class TransactionReceipt
+    public class TransactionReceipt : IGethApiObject
     {
         [JsonProperty("transactionHash")]
         public string TransactionHash { get; set; }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace EthereumGethRpc.DataModel
 {
+    /// <summary>
+    /// Contains all informations about a blockchain transaction
+    /// </summary>
     public class Transaction : IGethApiObject
     {
         /// <summary>
@@ -21,6 +24,9 @@ namespace EthereumGethRpc.DataModel
         [JsonProperty("to")]
         public string To { get; set; }
 
+        /// <summary>
+        /// Transaction hash
+        /// </summary>
         [JsonProperty("hash")]
         public string Hash { get; set; }
 
@@ -50,6 +56,7 @@ namespace EthereumGethRpc.DataModel
         public string Input { get; set; }
 
         /// <summary>
+        /// hexString containing custom DATA stored in the blockchain
         /// ABI of contract attached to the transaction
         /// </summary>
         [JsonProperty("data")]
