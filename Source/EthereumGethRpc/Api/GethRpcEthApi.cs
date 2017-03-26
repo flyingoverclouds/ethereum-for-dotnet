@@ -205,7 +205,6 @@ namespace EthereumGethRpc.Api
         }
 
         /// <summary>
-        /// NOT TESTED
         /// the specified address account must be unlocked.
         /// </summary>
         /// <param name="address">account address/id to used for signing. </param>
@@ -213,8 +212,7 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<string> SignAsync(string address, string hexDataToSign)
         {
-            // TODO : to test 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_sign\",\"params\":[\"" + address + "\",\"" + hexDataToSign + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_sign", address, hexDataToSign);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
@@ -265,38 +263,14 @@ namespace EthereumGethRpc.Api
         /// NOT TESTED
         /// Executes a new message call immediately without creating a transaction on the block chain.
         /// </summary>
-        /// <param name="toAddress">The address the transaction is directed to</param>
-        /// <param name="blockNumber"></param>
-        /// <param name="data">Hash of the method signature and encoded parameters.</param>
-        /// <param name="fromAddress">The address the transaction is sent from</param>
-        /// <param name="value">Integer of the value send with this transaction</param>
-        /// <param name="gas">Integer of the gas provided for the transaction execution. eth_call consumes zero gas, but this parameter may be needed by some executions</param>
-        /// <param name="gasPrice">Integer of the gasPrice used for each paid gas</param>
+        /// <param name="trx">Transaction to execute</param>
+        /// <param name="blockNumber">hexStr block number , or "latest","earliest","pendind". Default is "latest"</param>
         /// <returns></returns>
-        public async Task<string> CallAsync(string toAddress, string blockNumber = "latest", string data = null, string fromAddress = null, string value = null, string gas = null, string gasPrice = null)
+        public async Task<string> CallAsync(Transaction trx,string blockNumber="latest")
         {
             // TODO : to test 
 
-            if (string.IsNullOrEmpty(toAddress))
-                throw new NullReferenceException("'toAddress' parameter can not be null or empty");
-            if (string.IsNullOrEmpty(blockNumber))
-                throw new NullReferenceException("'blockNumber' parameter can not be null or empty");
-
-            StringBuilder sbTxCallJson = new StringBuilder();
-            if (!string.IsNullOrEmpty(fromAddress))
-                sbTxCallJson.Append($"{{ \"from\" : \"{fromAddress}\" ");
-            sbTxCallJson.Append($", \"to\" : \"{toAddress}\" ");
-            if (!string.IsNullOrEmpty(gas))
-                sbTxCallJson.Append($", \"gas\" : \"{gas}\" ");
-            if (!string.IsNullOrEmpty(gasPrice))
-                sbTxCallJson.Append($", \"gasPrice\" : \"{gasPrice}\" ");
-            if (!string.IsNullOrEmpty(value))
-                sbTxCallJson.Append($", \"value\" : \"{value}\" ");
-            if (!string.IsNullOrEmpty(data))
-                sbTxCallJson.Append($", \"data\" : \"{data}\" ");
-            sbTxCallJson.Append("} ");
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_call\",\"params\":[\"" + sbTxCallJson.ToString() + "\" , \"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_call",trx,blockNumber);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
@@ -423,7 +397,7 @@ namespace EthereumGethRpc.Api
         /// <returns>Array of available compilers</returns>
         public async Task<string[]> GetCompilersAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getCompilers\",\"params\":[\"" + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getCompilers");
             var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
             return res;
         }
@@ -436,8 +410,7 @@ namespace EthereumGethRpc.Api
         /// <returns>ABI oboject</returns>
         public async Task<Abi> CompileSolidityAsync(string sourceCode)
         {
-            var escaped = sourceCode.Replace("\"", @"\""");
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_compileSolidity\",\"params\":[\"" + escaped + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_compileSolidity",sourceCode);
             var res = await ExecuteRpcRequestAsync<Abi>(rpcReq);
             return res;
         }
@@ -489,7 +462,7 @@ namespace EthereumGethRpc.Api
         /// <returns>filter ID</returns>
         public async Task<string> NewBlockFilterAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_newBlockFilter\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_newBlockFilter");
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
         }
@@ -501,7 +474,7 @@ namespace EthereumGethRpc.Api
         /// <returns>filter ID</returns>
         public async Task<string> NewPendingTransactionFilterAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_newPendingTransactionFilter\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_newPendingTransactionFilter");
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
         }
@@ -514,7 +487,7 @@ namespace EthereumGethRpc.Api
         /// <returns>true for success, false for failure</returns>
         public async Task<bool> UninstallFilterAsync(string filterId)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_uninstallFilter\",\"params\":[ \"" + filterId + "\"  ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_uninstallFilter", filterId);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
@@ -530,7 +503,7 @@ namespace EthereumGethRpc.Api
             // TODO : test with full data return
             //https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterchanges
 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getFilterChanges\",\"params\":[ \"" + filterId + "\"  ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getFilterChanges", filterId);
             var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
             return res;
         }
@@ -580,7 +553,7 @@ namespace EthereumGethRpc.Api
         public async Task<string[]> GetWorkAsync()
         {
             // TODO : finalize test with mining instance of Geth
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getWork\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getWork");
             var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
             return res;
         }

@@ -28,7 +28,7 @@ namespace EthereumGethRpc.Api
 
         public async Task<string[]> ListAccountsAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"personal_listAccounts\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("personal_listAccounts");
             var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
             return res;
         }

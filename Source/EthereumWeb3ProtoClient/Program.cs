@@ -245,28 +245,27 @@ namespace EthereumWeb3ProtoClient
                 foreach (var acc in accounts)
                 {
                     Console.WriteLine("      #" + acc);
-                    Console.WriteLine("            balance : " + await gethProxy.Eth.GetBalanceAsync(acc) + ".wei");
-                    Console.WriteLine("            transactionCount : " + await gethProxy.Eth.GetTransactionCountAsync(acc));
+                    //Console.WriteLine("            balance : " + await gethProxy.Eth.GetBalanceAsync(acc) + ".wei");
+                    //Console.WriteLine("            transactionCount : " + await gethProxy.Eth.GetTransactionCountAsync(acc));
                 }
-
-                //Console.WriteLine("ETH: test sign : " + await nodeApi.Eth_Sign(accounts[0], "0x112233445566778899aabbccddeeff"));
+                await gethProxy.Personal.UnlockAccountAsync(accounts[0], "password");
+                Console.WriteLine("ETH: test sign : " + await gethProxy.Eth.SignAsync(accounts[0], "Nicolas".ToHex()));
                 Transaction trxGasEstimate = new Transaction() { }; 
                 Console.WriteLine("ETH: estimateGas :" + await gethProxy.Eth.EstimateGasAsync(trxGasEstimate));
 
-                //var block = await nodeApi.Eth_GetBlockByNumber("latest", false);
-                //var blockDetailed = await nodeApi.Eth_GetBlockByNumber("latest", true);
+                var block = await gethProxy.Eth.GetBlockByNumberAsync("latest", false);
+                var blockDetailed = await gethProxy.Eth.GetBlockByNumberAsync("latest", false);
 
-                //var trx = await nodeApi.Eth_GetTransactionByHash("0x0000000000000000000000000000000000000000000000000000000000000000");
-                //var trx2 = await nodeApi.Eth_GetTransactionByBlockNumberAndIndex("0x0", "0X0");
+                var trx = await gethProxy.Eth.GetTransactionByHashAsync("0x0000000000000000000000000000000000000000000000000000000000000000");
+                var trx2 = await gethProxy.Eth.GetTransactionByBlockNumberAndIndexAsync("0x0", "0X0");
 
-                string contractCode = "pragma solidity ^0.4.0; contract MesMath { function multiply(uint a) returns(uint d) {   return a * 7;   } }";
-                var abi = await gethProxy.Eth.CompileSolidityAsync(contractCode);
-
-                
                 Console.Write("ETH: getCompilers : [ ");
                 foreach (var c in await gethProxy.Eth.GetCompilersAsync())
                     Console.Write($"{c}  ");
                 Console.WriteLine("] ");
+
+                //string contractCode = "pragma solidity ^0.4.0; contract MesMath { function multiply(uint a) returns(uint d) {   return a * 7;   } }";
+                //var abi = await gethProxy.Eth.CompileSolidityAsync(contractCode);
 
                 var blockFilter = await gethProxy.Eth.NewBlockFilterAsync();
                 Console.WriteLine("ETH: newBlockFilter : " + blockFilter);
@@ -276,7 +275,12 @@ namespace EthereumWeb3ProtoClient
                 var chg = await gethProxy.Eth.GetFilterChangesAsync(trxFilter);
                 Console.WriteLine("ETH:     uninstallFilter : " + await gethProxy.Eth.UninstallFilterAsync(trxFilter));
                 Console.WriteLine("ETH:     uninstallFilter : " + await gethProxy.Eth.UninstallFilterAsync(trxFilter));
-                var t = await gethProxy.Eth.CallAsync("0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b", "0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6effff");
+
+                trx = new Transaction()
+                {
+
+                };
+                var t = await gethProxy.Eth.CallAsync(trx);
                 var works = await gethProxy.Eth.GetWorkAsync();
                 Console.WriteLine("ETH: submitWork : " + await gethProxy.Eth.SubmitWorkAsync("0x0000000000000001", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6effff"));
                 Console.WriteLine("ETH: submitHashRate : " + await gethProxy.Eth.SubmitHashRateAsync("0x500000", "0x59daa26581d0acd1fce254fb7e85952f4c09d0915afd33d3886cd914bc7d283c"));
@@ -293,7 +297,7 @@ namespace EthereumWeb3ProtoClient
 
                 Console.WriteLine();
                 Console.WriteLine("WEB3: clientVersion : " + await gethProxy.Web3.GetClientVersion());
-                Console.WriteLine("WEB3: sha3 : " + await gethProxy.Web3.GetSha3("0x68656c6c6f20776f726c64"));
+                Console.WriteLine("WEB3: sha3 : " + await gethProxy.Web3.GetSha3("Nicolas".ToHex()));
 
                 Console.WriteLine();
                 Console.WriteLine("PERSONAL: listAccounts :");

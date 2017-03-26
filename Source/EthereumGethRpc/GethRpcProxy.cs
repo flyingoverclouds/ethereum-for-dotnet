@@ -24,6 +24,7 @@ namespace EthereumGethRpc
             this.Net = new EthereumGethRpc.Api.GethRpcNetApi(rpcEndpoint);
             this.Shh = new EthereumGethRpc.Api.GethRpcShhApi(rpcEndpoint);
             this.Personal = new EthereumGethRpc.Api.GethRpcPersonalApi(rpcEndpoint);
+            this.Web3 = new Api.GethRpcWeb3Api(rpcEndpoint);
         }
         
         /// <summary>

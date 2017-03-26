@@ -22,13 +22,13 @@ namespace EthereumGethRpc.Api
 
         public async Task<string> GetClientVersion()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"web3_clientVersion\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("web3_clientVersion");
             return await ExecuteRpcRequestAsync(rpcReq);
         }
 
         public async Task<string> GetSha3(string data)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"web3_sha3\",\"params\":[\"" + data + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("web3_sha3",data);
             return await ExecuteRpcRequestAsync(rpcReq);
         }
 
