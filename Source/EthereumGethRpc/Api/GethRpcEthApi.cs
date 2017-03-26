@@ -302,50 +302,14 @@ namespace EthereumGethRpc.Api
         }
 
         /// <summary>
-        /// NOT TESTED
+        /// Resturn the estimated gas for the transaction. 
+        /// The transaction is not added to the blockchain
         /// </summary>
-        /// <param name="toAddress"></param>
-        /// <param name="data"></param>
-        /// <param name="fromAddress"></param>
-        /// <param name="value"></param>
-        /// <param name="gas"></param>
-        /// <param name="gasPrice"></param>
-        /// <returns></returns>
-        [Obsolete("obsolete version")]
-        public async Task<string> EstimateGasAsync(string toAddress = null, string data = null, string fromAddress = null, string value = null, string gas = null, string gasPrice = null)
+        /// <param name="trx">Transaction to estimate</param>
+        /// <returns>estimated gas</returns>
+        public async Task<string> EstimateGasAsync(Transaction trx)
         {
-            // TODO : to test 
-
-            StringBuilder sbTxCallJson = new StringBuilder();
-            if (!string.IsNullOrEmpty(fromAddress))
-                sbTxCallJson.Append($", \"from\" : \"{fromAddress}\" ");
-            if (!string.IsNullOrEmpty(toAddress))
-                sbTxCallJson.Append($", \"to\" : \"{toAddress}\" ");
-            if (!string.IsNullOrEmpty(gas))
-                sbTxCallJson.Append($", \"gas\" : \"{gas}\" ");
-            if (!string.IsNullOrEmpty(gasPrice))
-                sbTxCallJson.Append($", \"gasPrice\" : \"{gasPrice}\" ");
-            if (!string.IsNullOrEmpty(value))
-                sbTxCallJson.Append($", \"value\" : \"{value}\" ");
-            if (!string.IsNullOrEmpty(data))
-                sbTxCallJson.Append($", \"data\" : \"{data}\" ");
-            string json = "{ ";
-            if (sbTxCallJson.Length > 0)
-            {
-                json += sbTxCallJson.ToString().Substring(1); // jump the first ','
-            }
-            json += "} ";
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[ " + json + "],\"id\":" + GetNewId().ToString() + "}";
-
-            var res = await ExecuteRpcRequestAsync(rpcReq);
-            return res;
-        }
-
-        public async Task<string> EstimateGasAsync(Transaction trx,string blockNumber="latest")
-        {
-            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[ " + json + "],\"id\":" + GetNewId().ToString() + "}";
-            string rpcReq = BuildRpcRequest("eth_estimateGas", trx, blockNumber); 
+            string rpcReq = BuildRpcRequest("eth_estimateGas", trx); 
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
