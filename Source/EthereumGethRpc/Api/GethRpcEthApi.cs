@@ -27,7 +27,7 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<string> GetProtocolVersionAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_protocolVersion\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_protocolVersion");
             return await ExecuteRpcRequestAsync(rpcReq);
         }
 
@@ -39,11 +39,8 @@ namespace EthereumGethRpc.Api
         /// <returns>true =currenlty syncing, false not syncing</returns>
         public async Task<SyncingStatus> SyncingStatusAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
-
+            string rpcReq = BuildRpcRequest("eth_syncing");
             var res = await ExecuteRpcRequestAsync(rpcReq);
-            //res = "{ startingBlock: '0x384', currentBlock: '0x386', highestBlock: '0x454'}"; // for testing deserialization
-
             if (res == "false")
                 return null;
 
@@ -58,7 +55,7 @@ namespace EthereumGethRpc.Api
         /// <returns>address of coin base (hexString)</returns>
         public async Task<string> GetCoinbaseAddressAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_coinbase");
             return await ExecuteRpcRequestAsync(rpcReq);
         }
 
@@ -68,34 +65,34 @@ namespace EthereumGethRpc.Api
         /// <returns>true=geth is mining, false= geth is not mining</returns>
         public async Task<bool> IsMiningAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_mining\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_mining");
             return Convert.ToBoolean(await ExecuteRpcRequestAsync(rpcReq));
         }
 
         public async Task<Int64> GetHashRateAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_hashrate\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_hashrate");
             var result = await ExecuteRpcRequestAsync(rpcReq);
             return Int64FromQuantity(result);
         }
 
         public async Task<Int64> GetGasPriceAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_gasPrice");
             var result = await ExecuteRpcRequestAsync(rpcReq);
             return Int64FromQuantity(result);
         }
 
         public async Task<string[]> GetAccountsAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_accounts");
             var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
             return res;
         }
 
         public async Task<Int64> GetMostRecentBlockNumberAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_blockNumber");
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return Int64FromQuantity(res);
         }
@@ -134,8 +131,9 @@ namespace EthereumGethRpc.Api
 
         public async Task<string> GetTransactionCountAsync(string address, string blockNumber = "latest")
         {
-            // TODO : add support for int128 ( nuget BigMath)
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"" + address + "\",\"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+            // TODO : add support for int256 ( nuget BigMath ?)
+            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"" + address + "\",\"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getTransactionCount", address,blockNumber);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
@@ -313,6 +311,7 @@ namespace EthereumGethRpc.Api
         /// <param name="gas"></param>
         /// <param name="gasPrice"></param>
         /// <returns></returns>
+        [Obsolete("obsolete version")]
         public async Task<string> EstimateGasAsync(string toAddress = null, string data = null, string fromAddress = null, string value = null, string gas = null, string gasPrice = null)
         {
             // TODO : to test 
@@ -343,6 +342,14 @@ namespace EthereumGethRpc.Api
             return res;
         }
 
+        public async Task<string> EstimateGasAsync(Transaction trx,string blockNumber="latest")
+        {
+            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[ " + json + "],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_estimateGas", trx, blockNumber); 
+            var res = await ExecuteRpcRequestAsync(rpcReq);
+            return res;
+        }
+
         /// <summary>
         /// Returns information about a block by hash.
         /// Detailed transaction NOT TESTED/NOT WORKING (throw NotImplementedException)
@@ -352,13 +359,11 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<Block> GetBlockByHashAsync(string blockHash, bool returnDetailedTransaction = false)
         {
+            // TODO : add correct mapping for details result
             if (returnDetailedTransaction)
                 throw new NotImplementedException("detail transaction not implemented");
-            // Detailed transaction not tested
 
-            // TODO : add correc mapping for details result
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByHash\",\"params\":[\"" + blockHash + "\" , " + returnDetailedTransaction.ToString().ToLower() + " ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getBlockByHash", blockHash, returnDetailedTransaction);
             var res = await ExecuteRpcRequestAsync<Block>(rpcReq);
             return res;
         }
@@ -372,12 +377,11 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<Block> GetBlockByNumberAsync(string blockNumber = "latest", bool returnDetailedTransaction = false)
         {
+            // TODO : add correct mapping for detailed result
             if (returnDetailedTransaction)
                 throw new NotImplementedException("detail transaction not implemented");
 
-            // TODO : add correc mapping for details result
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockByNumber\",\"params\":[\"" + blockNumber + "\" , " + (returnDetailedTransaction ? "true" : "false") + " ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getBlockByNumber", blockNumber, returnDetailedTransaction);
             return await ExecuteRpcRequestAsync<Block>(rpcReq);
         }
 
@@ -388,9 +392,7 @@ namespace EthereumGethRpc.Api
         /// <returns>Transacation object if found, null if not found</returns>
         public async Task<Transaction> GetTransactionByHashAsync(string transactionHash)
         {
-            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByHash\",\"params\":[\"" + transactionHash + "\" ],\"id\":" + GetNewId().ToString() + "}";
             string rpcReq = BuildRpcRequest("eth_getTransactionByHash", transactionHash);
-
             return await ExecuteRpcRequestAsync<Transaction>(rpcReq);
         }
 
@@ -402,7 +404,7 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<Transaction> GetTransactionByBlockHashAndIndexAsync(string blockHash, string transactionIndex)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionByBlockHashAndIndex\",\"params\":[\"" + blockHash + "\" , \"" + transactionIndex + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getTransactionByBlockHashAndIndex", blockHash, transactionIndex);
             return await ExecuteRpcRequestAsync<Transaction>(rpcReq);
         }
 

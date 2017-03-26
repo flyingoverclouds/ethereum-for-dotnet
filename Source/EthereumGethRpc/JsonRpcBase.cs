@@ -58,6 +58,10 @@ namespace EthereumGethRpc
                 {
                     rpcReq.Append(JsonConvert.SerializeObject(parameters[n], new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })); 
                 }
+                else if (parameters[n] is bool)
+                {
+                    rpcReq.Append(parameters[n].ToString().ToLower());
+                }
                 else
                 {
                     str = parameters[n] as string;
