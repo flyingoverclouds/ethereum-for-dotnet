@@ -229,11 +229,10 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<string> SendTransactionAsync(Transaction trx)
         {
-            if (string.IsNullOrEmpty(trx.From))
+            if (string.IsNullOrEmpty(trx?.From))
                 throw new NullReferenceException("'fromAddress' parameter can not be null or empty");
 
-            string sbParamJson = JsonConvert.SerializeObject(trx, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_sendTransaction\",\"params\":[ " + sbParamJson + " ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_sendTransaction", trx);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
@@ -245,7 +244,7 @@ namespace EthereumGethRpc.Api
         /// <returns>null if no receipt available, instance of TransactionReceipt if available</returns>
         public async Task<TransactionReceipt> GetTransactionReceiptAsync(string trxId)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionReceipt\",\"params\":[\"" + trxId + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getTransactionReceipt", trxId);
             var res = await ExecuteRpcRequestAsync<TransactionReceipt>(rpcReq);
             return res;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EthereumGethRpc.DataModel
 {
-    public class Transaction
+    public class Transaction : IGethApiObject
     {
         /// <summary>
         /// Sender account address

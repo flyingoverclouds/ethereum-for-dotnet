@@ -44,6 +44,7 @@ namespace EthereumGethRpc
         /// <returns></returns>
         protected string BuildRpcRequest(string methodeName, params object[] parameters)
         {
+            // TODO : add exception catching
             StringBuilder rpcReq = new StringBuilder();
             rpcReq.Append("{ \"jsonrpc\":\"2.0\",\"method\":\"");
             rpcReq.Append(methodeName);
@@ -53,11 +54,18 @@ namespace EthereumGethRpc
             {
                 if (n > 0) // not on the 1st param -> add coma
                     rpcReq.Append(" , ");
-                str = parameters[n] as string;
-                if (str != null)
-                    rpcReq.AppendFormat("\"{0}\"", str.Replace("\"", "\\\""));
+                if (parameters[n] is IGethApiObject) // object is for API call -> serializing it in json
+                {
+                    rpcReq.Append(JsonConvert.SerializeObject(parameters[n], new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })); 
+                }
                 else
-                    rpcReq.Append(parameters[n]);
+                {
+                    str = parameters[n] as string;
+                    if (str != null) // parameter is a string -> adding trailing double quote
+                        rpcReq.AppendFormat("\"{0}\"", str.Replace("\"", "\\\"")); 
+                    else // parameter is not a string  -> adding tostring 
+                        rpcReq.Append(parameters[n].ToString());
+                }
             }
             rpcReq.Append("],\"id\": ");
             rpcReq.Append(GetNewId().ToString());
