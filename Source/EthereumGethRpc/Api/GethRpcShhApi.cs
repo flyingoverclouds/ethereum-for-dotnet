@@ -9,7 +9,6 @@ namespace EthereumGethRpc.Api
 
     /// <summary>
     /// NOT FULLY IMPLEMENTED AND/OR TESTED !!!!!
-    /// 
     /// Encapsulation of SHH rpc api for Geth 
     /// Not intended to be used in a standalone instance (instance created by GethRpcProxy class)
     /// based on https://github.com/ethereum/wiki/wiki/JSON-RPC 
@@ -28,17 +27,17 @@ namespace EthereumGethRpc.Api
         /// Returns the current whisper protocol version.
         /// </summary>
         /// <returns>current whisper protocol version</returns>
-        public async Task<string> GetVersion()
+        public async Task<string> GetVersionAsync()
         {
             // TODO : TEST
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_version\",\"params\":[ ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("shh_version");
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
         }
 
         /// <summary>
-        /// NOT IMPLEMENTED
+        /// NOT IMPLEMENTED (throw NotImplementException)
+        /// send a whisper messaged
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -47,11 +46,12 @@ namespace EthereumGethRpc.Api
         /// <param name="priority"></param>
         /// <param name="ttl"></param>
         /// <returns></returns>
-        public async Task<string> Post(string from, string to, string[] topics, string payload, string priority, string ttl)
+        public async Task<string> PostAsync(string from, string to, string[] topics, string payload, string priority, string ttl)
         {
             // TODO : TEST
-            throw new NotImplementedException("ShhPost");
-            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_version\",\"params\":[ ],\"id\":" + GetNewId().ToString() + "}";
+            throw new NotImplementedException("shh_post call not implemented");
+
+            //string rpcReq = BuildRpcRequest("shh_post", from, to, topics, payload, priority, ttl); 
             //var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             //return res;
         }
@@ -61,10 +61,11 @@ namespace EthereumGethRpc.Api
         /// Creates new whisper identity in the client.
         /// </summary>
         /// <returns>address of the new identiy</returns>
-        public async Task<string> NewIdentity()
+        public async Task<string> NewIdentityAsync()
         {
             // TODO : to test
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_newIdentity\",\"params\":[ ],\"id\":" + GetNewId().ToString() + "}";
+            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_newIdentity\",\"params\":[ ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("shh_newIdentity");
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
         }
@@ -75,10 +76,10 @@ namespace EthereumGethRpc.Api
         /// </summary>
         /// <param name="address">identity address to check</param>
         /// <returns>true if the client holds the privatekey for that identity, otherwise false.</returns>
-        public async Task<bool> HasIdentity(string address)
+        public async Task<bool> HasIdentityAsync(string address)
         {
             // TODO : to test
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_hasIdentity\",\"params\":[ \"" + address + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("shh_hasIdentity",address);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
@@ -87,10 +88,10 @@ namespace EthereumGethRpc.Api
         /// NOT TESTED 
         /// </summary>
         /// <returns>address of the new group</returns>
-        public async Task<string> NewGroup()
+        public async Task<string> NewGroupAsync()
         {
             // TODO : to test
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_newGroup\",\"params\":[  ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("shh_newGroup");
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
         }
@@ -98,21 +99,60 @@ namespace EthereumGethRpc.Api
         /// <summary>
         /// NOT TESTED 
         /// </summary>
-        /// <param name="address">identity address to add to a group (?).</param>
+        /// <param name="address">address to add to a group.</param>
         /// <returns>true if the identity was successfully added to the group, otherwise false (?).</returns>
-        public async Task<bool> AddToGroup(string address)
+        public async Task<bool> AddToGroupAsync(string address)
         {
             // TODO : to test
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_addToGroup\",\"params\":[ \"" + address + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("shh_addToGroup",address);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
 
-        // TODO : shh_newFilter
+        /// <summary>
+        /// NOT IMPLEMENTED (thow NotImplementedException)
+        /// Creates filter to notify, when client receives whisper message matching the filter options
+        /// </summary>
+        /// <param name="filterOptions"></param>
+        /// <returns>filter ID</returns>
+        public async Task<bool> NewFilterAsync(string  filterOptions)
+        {
+            throw new NotImplementedException("shh_newFilter call not implemented");
+            // TODO : to IMPLEMENT
+            //string rpcReq = BuildRpcRequest("shh_addToGroup", filterOptions);
+            //var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
+            //return res;
+        }
 
-        // TODO : shh_uninstallFilter
+        /// <summary>
+        /// NOT TESTED
+        /// uninstall a filter using its filter ID
+        /// </summary>
+        /// <param name="filterId">filterid to uninstall</param>
+        /// <returns>true if uninstall succeeded, false otherwise</returns>
+        public async Task<bool> UninstallFilterAsync(string filterId)
+        {
+            // TODO : to TEST 
+            string rpcReq = BuildRpcRequest("shh_uninstallFilter", filterId);
+            var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
+            return res;
+        }
 
-        // TODO : shh_getFilterChanges
+
+        /// <summary>
+        /// NOT IMPLEMENTED (thow NotImplementedException)
+        /// return changes mathing the filter
+        /// </summary>
+        /// <param name="filterId">id of filter to query</param>
+        /// <returns>changes</returns>
+        public async Task<string> GetFilterChangesAsync(string filterId)
+        {
+            throw new NotImplementedException("shh_getFilterChanges call not implemented");
+            // TODO : to IMPLEMENT
+            //string rpcReq = BuildRpcRequest("shh_getFilterChanges", filterId);
+            //var res = await ExecuteRpcRequestAsync(rpcReq);
+            //return res;
+        }
 
         // TODO : shh_getMessages
 
