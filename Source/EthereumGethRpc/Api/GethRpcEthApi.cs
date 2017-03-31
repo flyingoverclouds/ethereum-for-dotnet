@@ -162,63 +162,69 @@ namespace EthereumGethRpc.Api
 
         /// <summary>
         /// NOT TESTED
+        /// Return the count of transaction in a block identified by its numbers.
         /// </summary>
         /// <param name="blockNumber">block number, or 'latest' or 'earliest' or 'pending'</param>
-        /// <returns></returns>
+        /// <returns>count of transaction in the block</returns>
         public async Task<string> GetBlockTransactionCountByNumberAsync(string blockNumber = "latest")
         {
             // TODO : to test 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByNumber\",\"params\":[\"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getBlockTransactionCountByNumber", blockNumber);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
 
         /// <summary>
         /// NOT TESTED
+        /// return the count of uncles in a block identified by its hash
         /// </summary>
         /// <param name="blockHash"></param>
         /// <returns></returns>
         public async Task<string> GetUncleCountByBlockHashAsync(string blockHash)
         {
             // TODO : to test 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getUncleCountByBlockHash\",\"params\":[\"" + blockHash + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getUncleCountByBlockHash", blockHash);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
 
         /// <summary>
         /// NOT TESTED
+        /// return the number of uncle in a block identified by its number
         /// </summary>
         /// <param name="blockNumber">block number, or 'latest' or 'earliest' or 'pending'</param>
         /// <returns></returns>
         public async Task<string> GetUncleCountByBlockNumberAsync(string blockNumber = "latest")
         {
             // TODO : to test 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getUncleCountByBlockNumber\",\"params\":[\"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getUncleCountByBlockNumber", blockNumber);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
 
         /// <summary>
         /// NOT TESTED
+        /// return the code present at a specified address
         /// </summary>
-        /// <param name="address"></param>
+        /// <param name="address">address of code to retrieve</param>
         /// <param name="blockNumber">block number, or 'latest' or 'earliest' or 'pending'</param>
         /// <returns></returns>
         public async Task<string> GetCodeAsync(string address, string blockNumber = "lastest")
         {
             // TODO : to test 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getCode\",\"params\":[\"" + address + "\",\"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getCode",address,blockNumber);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
 
         /// <summary>
-        /// the specified address account must be unlocked.
+        /// NOT TESTED
+        /// Compute a a Ethereum signature 
+        /// NOTE : the address account must be unlocked.
         /// </summary>
         /// <param name="address">account address/id to used for signing. </param>
-        /// <param name="hexDataToSign">bytebuffer formatted as hexa (0xaabbccddeeff001122 ... ) to sign</param>
-        /// <returns></returns>
+        /// <param name="hexDataToSign">hexaString of the message to sign (0xaabbccddeeff001122 ... ) to sign</param>
+        /// <returns>signature of the message</returns>
         public async Task<string> SignAsync(string address, string hexDataToSign)
         {
             string rpcReq = BuildRpcRequest("eth_sign", address, hexDataToSign);
@@ -255,15 +261,15 @@ namespace EthereumGethRpc.Api
         }
 
         /// <summary>
-        /// Creates new message call transaction or a contract creation for signed transactions.
         /// NOT TESTED
+        /// Creates new message call transaction or a contract creation for signed transactions.
         /// </summary>
-        /// <param name="signedTransactionData"></param>
-        /// <returns></returns>
+        /// <param name="signedTransactionData">signed transaction datas</param>
+        /// <returns>transactionHash or 0x0 if not transaction available</returns>
         public async Task<string> SendRawTransactionAsync(string signedTransactionData)
         {
             // TODO TEST
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_sendRawTransaction\",\"params\":[\"" + signedTransactionData + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_sendRawTransaction", signedTransactionData);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
@@ -298,12 +304,13 @@ namespace EthereumGethRpc.Api
         }
 
         /// <summary>
+        /// NOT FULLY TESTED
         /// Returns information about a block by hash.
-        /// Detailed transaction NOT TESTED/NOT WORKING (throw NotImplementedException)
+        /// Detailed transaction not tested (throw NotImplementedException)
         /// </summary>
         /// <param name="blockHash">Hash of a block</param>
         /// <param name="returnDetailedTransaction">If true it returns the full transaction objects, if false only the hashes of the transactions.</param>
-        /// <returns></returns>
+        /// <returns>Block information</returns>
         public async Task<Block> GetBlockByHashAsync(string blockHash, bool returnDetailedTransaction = false)
         {
             // TODO : add correct mapping for details result
@@ -316,12 +323,13 @@ namespace EthereumGethRpc.Api
         }
 
         /// <summary>
+        /// NOT FULLY TESTED
         /// Returns information about a block by block number.
         /// Detailed transaction NOT TESTED/NOT WORKING (throw NotImplementedException)
         /// </summary>
         /// <param name="blockNumber"> integer of a block number, or the string "earliest", "latest" or "pending"</param>
         /// <param name="returnDetailedTransaction">If true it returns the full transaction objects, if false only the hashes of the transactions.</param>
-        /// <returns></returns>
+        /// <returns>block information</returns>
         public async Task<Block> GetBlockByNumberAsync(string blockNumber = "latest", bool returnDetailedTransaction = false)
         {
             // TODO : add correct mapping for detailed result
@@ -336,7 +344,7 @@ namespace EthereumGethRpc.Api
         /// Returns the information about a transaction requested by transaction hash
         /// </summary>
         /// <param name="transactionHash">hash of the transaction</param>
-        /// <returns>Transacation object if found, null if not found</returns>
+        /// <returns>Transaction object if found, null if not found</returns>
         public async Task<Transaction> GetTransactionByHashAsync(string transactionHash)
         {
             string rpcReq = BuildRpcRequest("eth_getTransactionByHash", transactionHash);
@@ -361,7 +369,7 @@ namespace EthereumGethRpc.Api
         /// </summary>
         /// <param name="blockNumber"> a block number, or the string "earliest", "latest" or "pending"</param>
         /// <param name="transactionIndex">transaction index position.</param>
-        /// <returns></returns>
+        /// <returns>transaction informations</returns>
         public async Task<Transaction> GetTransactionByBlockNumberAndIndexAsync(string blockNumber, string transactionIndex)
         {
             string rpcReq = BuildRpcRequest("eth_getTransactionByBlockNumberAndIndex", blockNumber, transactionIndex);
@@ -370,16 +378,15 @@ namespace EthereumGethRpc.Api
 
         /// <summary>
         /// NOT TESTED
-        /// Returns information about a uncle of a block by hash and uncle index position.
+        /// Returns information about an uncle of a block by hash and uncle index position.
         /// </summary>
         /// <param name="blockHash">hash a block</param>
         /// <param name="uncleIndex">uncle's index position</param>
-        /// <returns></returns>
+        /// <returns>block informations</returns>
         public async Task<Block> GetUncleByBlockHashAndIndexAsync(string blockHash, string uncleIndex)
         {
             // TODO TO TEST 
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getUncleByBlockHashAndIndex\",\"params\":[\"" + blockHash + "\" , \"" + uncleIndex + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getUncleByBlockHashAndIndex", blockHash, uncleIndex);
             var res = await ExecuteRpcRequestAsync<Block>(rpcReq);
             return res;
         }
@@ -390,12 +397,11 @@ namespace EthereumGethRpc.Api
         /// </summary>
         /// <param name="blockNumber">a block number, or the string "earliest", "latest" or "pending"</param>
         /// <param name="uncleIndex">uncle's index position</param>
-        /// <returns></returns>
+        /// <returns>block informations</returns>
         public async Task<Block> GetUncleByBlockNumberAndIndexAsync(string blockNumber = "lastest", string uncleIndex = "0x0")
         {
             // TODO TO TEST 
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getUncleByBlockNumberAndIndex\",\"params\":[\"" + blockNumber + "\" , \"" + uncleIndex + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getUncleByBlockNumberAndIndex", blockNumber,uncleIndex);
             var res = await ExecuteRpcRequestAsync<Block>(rpcReq);
             return res;
         }
@@ -403,7 +409,7 @@ namespace EthereumGethRpc.Api
         /// <summary>
         /// Returns a list of available compilers in the client
         /// </summary>
-        /// <returns>Array of available compilers</returns>
+        /// <returns>available compilers</returns>
         public async Task<string[]> GetCompilersAsync()
         {
             string rpcReq = BuildRpcRequest("eth_getCompilers");
@@ -416,7 +422,7 @@ namespace EthereumGethRpc.Api
         /// Solc compiler must be in the PATH of geth.
         /// </summary>
         /// <param name="sourceCode">the source code</param>
-        /// <returns>ABI oboject</returns>
+        /// <returns>ABI oboject </returns>
         public async Task<Abi> CompileSolidityAsync(string sourceCode)
         {
             string rpcReq = BuildRpcRequest("eth_compileSolidity",sourceCode);
@@ -429,13 +435,12 @@ namespace EthereumGethRpc.Api
         /// Returns compiled LLL code
         /// </summary>
         /// <param name="sourceCode">The source code.</param>
-        /// <returns>compiled source code</returns>
-        public async Task<string> CompileLLLAsync(string sourceCode)
+        /// <returns>AbiObject</returns>
+        public async Task<Abi> CompileLLLAsync(string sourceCode)
         {
-            var escaped = sourceCode.Replace("\"", @"\""");
-            // TODO : test with solidity & others compilers installed  
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_compileLLL\",\"params\":[\"" + escaped + "\"],\"id\":" + GetNewId().ToString() + "}";
-            var res = await ExecuteRpcRequestAsync<string>(rpcReq);
+            // TODO : test with others compilers installed  
+            string rpcReq = BuildRpcRequest("eth_compileLLL", sourceCode);
+            var res = await ExecuteRpcRequestAsync<Abi>(rpcReq);
             return res;
         }
 
@@ -444,24 +449,26 @@ namespace EthereumGethRpc.Api
         /// Returns compiled serpent code
         /// </summary>
         /// <param name="sourceCode">serpent source code</param>
-        /// <returns>compiled sourcecode</returns>
-        public async Task<string> CompileSerpentAsync(string sourceCode)
+        /// <returns>Abi object</returns>
+        public async Task<Abi> CompileSerpentAsync(string sourceCode)
         {
-            // TODO : escape the sourcecode (for quote & double quote)
-            // TODO : test with serpent compilers & others compilers installed  
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_compileSerpent\",\"params\":[\"" + sourceCode + "\"],\"id\":" + GetNewId().ToString() + "}";
-            var res = await ExecuteRpcRequestAsync<string>(rpcReq);
+            // TODO : test with serpent compilers 
+            string rpcReq = BuildRpcRequest("eth_compileSerpent", sourceCode);
+            var res = await ExecuteRpcRequestAsync<Abi>(rpcReq);
             return res;
         }
 
         /// <summary>
-        /// NOT IMPLEMENTED / NOT TESTED
+        /// NOT IMPLEMENTED (throw NotImplementedException)
+        /// Create a new filter to notify when state (logs) changes
         /// </summary>
-        /// <returns></returns>
-        public async Task<string> NewFilterAsync()
+        /// <returns>filter ID</returns>
+        public async Task<string> NewFilterAsync(string fromBlock,string toBlock,string address,string topicString)
         {
-            throw new NotImplementedException("Eth_NewFilter() NOT IMPLEMENTED");
-            return "";
+            throw new NotImplementedException("eth_newFilter call no implemented");
+            //string rpcReq = BuildRpcRequest("eth_newFilter");
+            //var res = await ExecuteRpcRequestAsync<string>(rpcReq);
+            //return res;
         }
 
         /// <summary>
@@ -489,7 +496,6 @@ namespace EthereumGethRpc.Api
         }
 
         /// <summary>
-        /// NOT TESTED
         /// Uninstalls a filter with given id. Should always be called when watch is no longer needed. 
         /// </summary>
         /// <param name="filterId">Id of filter to desinstall</param>
@@ -502,66 +508,67 @@ namespace EthereumGethRpc.Api
         }
 
         /// <summary>
-        /// NOT FULLY IMPLEMENTED / NOT TESTED
+        /// NOT IMPLEMENTED  (throw NotImplementedException)
         /// Polling method for a filter, which returns an array of logs which occurred since last poll
         /// </summary>
         /// <param name="filterId">fileter ID</param>
         /// <returns>array of changes from filter - NOT FULLY IMPLEMENTED</returns>
         public async Task<string[]> GetFilterChangesAsync(string filterId)
         {
-            // TODO : test with full data return
+            throw new NotImplementedException("eth_getFilterChanges call no implemented");
             //https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterchanges
 
-            string rpcReq = BuildRpcRequest("eth_getFilterChanges", filterId);
-            var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
-            return res;
+            //string rpcReq = BuildRpcRequest("eth_getFilterChanges", filterId);
+            //var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
+            //return res;
         }
 
         /// <summary>
-        /// NOT FULLY IMPLEMENTED / NOT TESTED
-        /// Returns an array of all logs matching filter with given id.
+        /// NOT IMPLEMENTED (throw NotImplementedException)
+        /// Returns all logs matching filter with given id.
         /// </summary>
         /// <param name="filterId">filter ID</param>
-        /// <returns>array of logs from filter - NOT FULLY IMPLEMENTED</returns>
+        /// <returns>array of logs from filter </returns>
         public async Task<string[]> GetFilterLogsAsync(string filterId)
         {
+            throw new NotImplementedException("eth_getFilterLogs call not implemented");
             // TODO : test with full data return
             //https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterlogs
 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getFilterLogs\",\"params\":[ \"" + filterId + "\"  ],\"id\":" + GetNewId().ToString() + "}";
-            var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
-            return res;
+            //string rpcReq = BuildRpcRequest("eth_getFilterLogs",filterId);
+            //var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
+            //return res;
         }
 
         /// <summary>
-        /// NOT FULLY IMPLEMENTED / NOT TESTED
+        /// NOT IMPLEMENTED (throw NotImplementedException)
         /// Returns an array of all logs matching a given filter object.
         /// </summary>
-        /// <param name="topics">list of topics</param>
-        /// <returns>logs matching topics - NOT FULLY IMPLEMENTED</returns>
-        public async Task<string[]> GetLogsAsync(params string[] topics)
+        /// <param name="topics">filter object</param>
+        /// <returns></returns>
+        public async Task<string> GetLogsAsync(string filter)
         {
-            // TODO : test with full data return
+            throw new NotImplementedException("eth_getLogs call not implemented");
+
             //https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getlogs
 
-            var topicsJson = JsonConvert.SerializeObject(topics);
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getLogs\",\"params\":[ { \"topics\" : " + topicsJson + "}  ],\"id\":" + GetNewId().ToString() + "}";
-            var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
-            // TODO : IMPLEMENT CUSTOM TYPE FOR RESULT
-
-            return res;
+            //string rpcReq = BuildRpcRequest("eth_getLogs");
+            //var res = await ExecuteRpcRequestAsync<string>(rpcReq);
+            //return res;
         }
 
         /// <summary>
         /// NOT TESTED
         /// Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").
         /// </summary>
-        /// <returns>[0]:current block header pow-hash,
+        /// <returns>array of string :
+        /// [0]:current block header pow-hash,
         /// [1]:the seed hash used for the DAG
-        /// [2]:the boundary condition ("target"), 2^256 / difficulty</returns>
+        /// [2]:the boundary condition ("target"), 2^256 / difficulty
+        /// </returns>
         public async Task<string[]> GetWorkAsync()
         {
-            // TODO : finalize test with mining instance of Geth
+            // TODO : to test with a mining instance
             string rpcReq = BuildRpcRequest("eth_getWork");
             var res = await ExecuteRpcRequestAsync<string[]>(rpcReq);
             return res;
@@ -577,7 +584,8 @@ namespace EthereumGethRpc.Api
         /// <returns>true if the provided solution is valid, otherwise false</returns>
         public async Task<bool> SubmitWorkAsync(string nonce, string powhash, string mixdigest)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_submitWork\",\"params\":[ \"" + nonce + "\", \"" + powhash + "\",\"" + mixdigest + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            // TODO : to test
+            string rpcReq = BuildRpcRequest("eth_submitWork",nonce,powhash,mixdigest);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
@@ -591,8 +599,8 @@ namespace EthereumGethRpc.Api
         /// <returns>true if submitting went through succesfully and false otherwise.</returns>
         public async Task<bool> SubmitHashRateAsync(string hashrate, string id)
         {
-
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_submitHashrate\",\"params\":[ \"" + hashrate + "\", \"" + id + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            // TODO : to test
+            string rpcReq = BuildRpcRequest("eth_submitHashrate",hashrate,id);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
@@ -607,7 +615,8 @@ namespace EthereumGethRpc.Api
         /// <returns>true if the value was stored, otherwise false.</returns>
         public async Task<bool> PutStringAsync(string databaseName, string keyName, string value)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_putString\",\"params\":[ \"" + databaseName + "\", \"" + keyName + "\",\"" + value + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            //TODO : TO TEST
+            string rpcReq = BuildRpcRequest("eth_putString", databaseName, keyName, value);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
@@ -621,36 +630,39 @@ namespace EthereumGethRpc.Api
         /// <returns>the retrieved string</returns>
         public async Task<string> GetStringAsync(string databaseName, string keyName)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getString\",\"params\":[ \"" + databaseName + "\", \"" + keyName + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            //TODO : TO TEST
+            string rpcReq = BuildRpcRequest("eth_getString", databaseName, keyName);
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
         }
 
         /// <summary>
         /// NOT TESTED 
-        /// Stores a hex in the local database.
+        /// Stores a hexString in the local database.
         /// </summary>
         /// <param name="databaseName">Database name.</param>
         /// <param name="keyName">Key name.</param>
-        /// <param name="hexvalue">hexa value to store</param>
+        /// <param name="hexvalue">hexString value to store</param>
         /// <returns>true if the value was stored, otherwise false.</returns>
         public async Task<bool> PutHexAsync(string databaseName, string keyName, string hexvalue)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_putHex\",\"params\":[ \"" + databaseName + "\", \"" + keyName + "\",\"" + hexvalue + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            // TODO : TO TEST
+            string rpcReq = BuildRpcRequest("eth_putHex", databaseName, keyName, hexvalue);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
 
         /// <summary>
         /// NOT TESTED 
-        /// Returns hexa from the local database.
+        /// Returns hexString from the local database.
         /// </summary>
         /// <param name="databaseName">Database name.</param>
         /// <param name="keyName">Key name.</param>
-        /// <returns>the retrieved hex</returns>
+        /// <returns>the retrieved hexString</returns>
         public async Task<string> GetHexAsync(string databaseName, string keyName)
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getHex\",\"params\":[ \"" + databaseName + "\", \"" + keyName + "\" ],\"id\":" + GetNewId().ToString() + "}";
+            // TODO : TO TEST
+            string rpcReq = BuildRpcRequest("eth_getHex",databaseName,keyName);
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
         }
