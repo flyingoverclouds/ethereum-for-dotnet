@@ -115,24 +115,32 @@ namespace EthereumGethRpc.Api
 
         /// <summary>
         /// NOT TESTED
+        /// Returns the value from a storage position at a given address
         /// </summary>
-        /// <param name="storageAddress"></param>
-        /// <param name="positionInStorage"></param>
+        /// <param name="storageAddress">address of the storage</param>
+        /// <param name="positionInStorage">position in the storage</param>
         /// <param name="blockNumber">block number, or 'latest' or 'earliest' or 'pending'</param>
         /// <returns></returns>
         public async Task<string> GetStorageAtAsync(string storageAddress, string positionInStorage, string blockNumber = "latest")
         {
             // TODO : add support for int256 ( nuget BigMath ?)
             // TODO TEST
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getStorageAt\",\"params\":[\"" + storageAddress + "\", \"" + positionInStorage + "\", \"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
+
+           string rpcReq = BuildRpcRequest("eth_getStorageAt", storageAddress, positionInStorage, blockNumber);
+
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
 
+        /// <summary>
+        /// return the number of transactions SENT from an address
+        /// </summary>
+        /// <param name="address">sender address </param>
+        /// <param name="blockNumber">block number, or 'latest' or 'earliest' or 'pending'</param>
+        /// <returns>numbers of transactions</returns>
         public async Task<string> GetTransactionCountAsync(string address, string blockNumber = "latest")
         {
             // TODO : add support for int256 ( nuget BigMath ?)
-            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getTransactionCount\",\"params\":[\"" + address + "\",\"" + blockNumber + "\"],\"id\":" + GetNewId().ToString() + "}";
             string rpcReq = BuildRpcRequest("eth_getTransactionCount", address,blockNumber);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
@@ -140,13 +148,14 @@ namespace EthereumGethRpc.Api
 
         /// <summary>
         /// NOT TESTED
+        /// return the number of transactions from a specific block
         /// </summary>
-        /// <param name="blockHash"></param>
-        /// <returns></returns>
+        /// <param name="blockHash">hash of the block</param>
+        /// <returns>numbers of transaction in the block</returns>
         public async Task<string> GetBlockTransactionCountByHashAsync(string blockHash)
         {
             // TODO : to test 
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"eth_getBlockTransactionCountByHash\",\"params\":[\"" + blockHash + "\"],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("eth_getBlockTransactionCountByHash", blockHash);
             var res = await ExecuteRpcRequestAsync(rpcReq);
             return res;
         }
