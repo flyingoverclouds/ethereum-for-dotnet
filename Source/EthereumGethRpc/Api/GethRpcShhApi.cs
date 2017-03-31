@@ -154,8 +154,20 @@ namespace EthereumGethRpc.Api
             //return res;
         }
 
-        // TODO : shh_getMessages
+        /// <summary>
+        /// NOT IMPLEMENTED (thow NotImplementedException)
+        /// return last messages for the filter
+        /// </summary>
+        /// <param name="filterId"></param>
+        /// <returns></returns>
+        public async Task<string> GetMessagesAsync(string filterId)
+        {
+            throw new NotImplementedException("shh_getMessages call not implemented");
+            // TODO : to test
+            string rpcReq = BuildRpcRequest("shh_getMessages", filterId);
+            var res = await ExecuteRpcRequestAsync<string>(rpcReq);
+            return res;
+        }
 
-        // TODO : shh_newFilter
     }
 }
