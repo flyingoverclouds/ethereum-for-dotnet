@@ -69,6 +69,11 @@ namespace EthereumGethRpc.Api
             return Convert.ToBoolean(await ExecuteRpcRequestAsync(rpcReq));
         }
 
+
+        /// <summary>
+        /// Returns the number of hashes per second that the node is mining with
+        /// </summary>
+        /// <returns></returns>
         public async Task<Int64> GetHashRateAsync()
         {
             string rpcReq = BuildRpcRequest("eth_hashrate");
@@ -76,6 +81,10 @@ namespace EthereumGethRpc.Api
             return Int64FromQuantity(result);
         }
 
+        /// <summary>
+        /// Returns the current price per gas in wei.
+        /// </summary>
+        /// <returns></returns>
         public async Task<Int64> GetGasPriceAsync()
         {
             string rpcReq = BuildRpcRequest("eth_gasPrice");
@@ -83,6 +92,11 @@ namespace EthereumGethRpc.Api
             return Int64FromQuantity(result);
         }
 
+        /// <summary>
+        /// Returns a list of addresses owned by the GETH client
+        /// (does not return ALL the addresse in the blockchain, locally stored/accessible by connected geth instances) .
+        /// </summary>
+        /// <returns></returns>
         public async Task<string[]> GetAccountsAsync()
         {
             string rpcReq = BuildRpcRequest("eth_accounts");
@@ -90,7 +104,11 @@ namespace EthereumGethRpc.Api
             return res;
         }
 
-        public async Task<Int64> GetMostRecentBlockNumberAsync()
+        /// <summary>
+        /// Returns the number of most recent block
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Int64> GetBlockNumberAsync()
         {
             string rpcReq = BuildRpcRequest("eth_blockNumber");
             var res = await ExecuteRpcRequestAsync(rpcReq);
@@ -597,7 +615,7 @@ namespace EthereumGethRpc.Api
         /// <param name="hashrate">hexadecimal string representation (32 bytes) of the hash rate</param>
         /// <param name="id">random hexadecimal(32 bytes) ID identifying the client</param>
         /// <returns>true if submitting went through succesfully and false otherwise.</returns>
-        public async Task<bool> SubmitHashRateAsync(string hashrate, string id)
+        public async Task<bool> SubmitHashrateAsync(string hashrate, string id)
         {
             // TODO : to test
             string rpcReq = BuildRpcRequest("eth_submitHashrate",hashrate,id);
