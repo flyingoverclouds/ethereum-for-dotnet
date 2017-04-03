@@ -315,7 +315,7 @@ namespace EthereumGethRpc.Api
         {
             // TODO : add correct mapping for details result
             if (returnDetailedTransaction)
-                throw new NotImplementedException("detail transaction not implemented");
+                throw new NotImplementedException("detailed transaction not implemented");
 
             string rpcReq = BuildRpcRequest("eth_getBlockByHash", blockHash, returnDetailedTransaction);
             var res = await ExecuteRpcRequestAsync<Block>(rpcReq);
@@ -334,7 +334,7 @@ namespace EthereumGethRpc.Api
         {
             // TODO : add correct mapping for detailed result
             if (returnDetailedTransaction)
-                throw new NotImplementedException("detail transaction not implemented");
+                throw new NotImplementedException("detailed transaction not implemented");
 
             string rpcReq = BuildRpcRequest("eth_getBlockByNumber", blockNumber, returnDetailedTransaction);
             return await ExecuteRpcRequestAsync<Block>(rpcReq);
