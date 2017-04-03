@@ -239,7 +239,7 @@ namespace EthereumWeb3ProtoClient
                 Console.WriteLine("ETH: mining : " + await gethProxy.Eth.IsMiningAsync());
                 Console.WriteLine("ETH: hashrate : " + await gethProxy.Eth.GetHashRateAsync());
                 Console.WriteLine("ETH: gasPrice : " + await gethProxy.Eth.GetGasPriceAsync());
-                Console.WriteLine("ETH: blockNumber : " + await gethProxy.Eth.GetMostRecentBlockNumberAsync());
+                Console.WriteLine("ETH: blockNumber : " + await gethProxy.Eth.GetBlockNumberAsync());
                 Console.WriteLine("ETH: accounts : ");
                 var accounts = await gethProxy.Eth.GetAccountsAsync();
                 foreach (var acc in accounts)
@@ -283,7 +283,7 @@ namespace EthereumWeb3ProtoClient
                 var t = await gethProxy.Eth.CallAsync(trx);
                 var works = await gethProxy.Eth.GetWorkAsync();
                 Console.WriteLine("ETH: submitWork : " + await gethProxy.Eth.SubmitWorkAsync("0x0000000000000001", "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6effff"));
-                Console.WriteLine("ETH: submitHashRate : " + await gethProxy.Eth.SubmitHashRateAsync("0x500000", "0x59daa26581d0acd1fce254fb7e85952f4c09d0915afd33d3886cd914bc7d283c"));
+                Console.WriteLine("ETH: submitHashRate : " + await gethProxy.Eth.SubmitHashrateAsync("0x500000", "0x59daa26581d0acd1fce254fb7e85952f4c09d0915afd33d3886cd914bc7d283c"));
                 //Console.WriteLine("ETH: putString : " + await nodeApi.Eth_PutString("testDb", "nicolas", "clerc"));
                 //Console.WriteLine("ETH: getString : " + await nodeApi.Eth_GetString("testDb", "nicolas"));
                 Console.WriteLine();
@@ -291,13 +291,13 @@ namespace EthereumWeb3ProtoClient
                 //Console.WriteLine("SHH: version : " + await nodeApi.Shh_GetVersion());
 
                 Console.WriteLine();
-                Console.WriteLine("NET: version : " + await gethProxy.Net.GetVersion());
-                Console.WriteLine("NET: listening : " + await gethProxy.Net.IsListening());
-                Console.WriteLine("NET: peerCount : " + await gethProxy.Net.GetPeerCount());
+                Console.WriteLine("NET: version : " + await gethProxy.Net.GetVersionAsync());
+                Console.WriteLine("NET: listening : " + await gethProxy.Net.IsListeningAsync());
+                Console.WriteLine("NET: peerCount : " + await gethProxy.Net.GetPeerCountAsync());
 
                 Console.WriteLine();
-                Console.WriteLine("WEB3: clientVersion : " + await gethProxy.Web3.GetClientVersion());
-                Console.WriteLine("WEB3: sha3 : " + await gethProxy.Web3.GetSha3("Nicolas".ToHex()));
+                Console.WriteLine("WEB3: clientVersion : " + await gethProxy.Web3.GetClientVersionAsync());
+                Console.WriteLine("WEB3: sha3 : " + await gethProxy.Web3.GetSha3Async("Nicolas".ToHex()));
 
                 Console.WriteLine();
                 Console.WriteLine("PERSONAL: listAccounts :");
