@@ -20,12 +20,20 @@ namespace EthereumGethRpc.Api
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetVersionAsync()
         {
             string rpcReq = BuildRpcRequest("net_version");
             return await ExecuteRpcRequestAsync(rpcReq);
         }
 
+        /// <summary>
+        /// return the net listening status of geth
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> IsListeningAsync()
         {
             string rpcReq = BuildRpcRequest("net_listening");

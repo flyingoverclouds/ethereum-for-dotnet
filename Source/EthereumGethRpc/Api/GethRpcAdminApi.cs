@@ -19,7 +19,7 @@ namespace EthereumGethRpc.Api
         {
 
         }
-        public async Task<string> GetDataDir()
+        public async Task<string> GetDataDirAsync()
         {
             string rpcReq = BuildRpcRequest("admin_datadir");
             return await ExecuteRpcRequestAsync(rpcReq);

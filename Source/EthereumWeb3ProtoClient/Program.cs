@@ -229,7 +229,7 @@ namespace EthereumWeb3ProtoClient
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("ADMIN: DataFolder : " + await gethProxy.Admin.GetDataDir());
+                Console.WriteLine("ADMIN: DataFolder : " + await gethProxy.Admin.GetDataDirAsync());
 
                 Console.WriteLine();
                 Console.WriteLine("ETH: protocolVersion : " + await gethProxy.Eth.GetProtocolVersionAsync());
