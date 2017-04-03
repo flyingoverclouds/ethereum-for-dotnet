@@ -20,13 +20,13 @@ namespace EthereumGethRpc.Api
 
         }
 
-        public async Task<string> GetClientVersion()
+        public async Task<string> GetClientVersionAsync()
         {
             string rpcReq = BuildRpcRequest("web3_clientVersion");
             return await ExecuteRpcRequestAsync(rpcReq);
         }
 
-        public async Task<string> GetSha3(string data)
+        public async Task<string> GetSha3Async(string data)
         {
             string rpcReq = BuildRpcRequest("web3_sha3",data);
             return await ExecuteRpcRequestAsync(rpcReq);

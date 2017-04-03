@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\GethRpcDbApi.cs" />
     <Compile Include="DataModel\IGethApiObject.cs" />
     <Compile Include="Api\GethRpcPersonalApi.cs" />
     <Compile Include="Api\GethRpcWeb3Api.cs" />

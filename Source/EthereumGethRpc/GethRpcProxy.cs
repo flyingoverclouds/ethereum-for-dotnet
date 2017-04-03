@@ -18,13 +18,14 @@ namespace EthereumGethRpc
         public GethRpcProxy(Uri rpcEndpoint)
             :base(rpcEndpoint)
         {
-            this.Eth = new EthereumGethRpc.Api.GethRpcEthApi(rpcEndpoint);
-            this.Admin = new EthereumGethRpc.Api.GethRpcAdminApi(rpcEndpoint);
-            this.Miner = new EthereumGethRpc.Api.GethRpcMinerApi(rpcEndpoint);
-            this.Net = new EthereumGethRpc.Api.GethRpcNetApi(rpcEndpoint);
-            this.Shh = new EthereumGethRpc.Api.GethRpcShhApi(rpcEndpoint);
-            this.Personal = new EthereumGethRpc.Api.GethRpcPersonalApi(rpcEndpoint);
+            this.Eth = new Api.GethRpcEthApi(rpcEndpoint);
+            this.Admin = new Api.GethRpcAdminApi(rpcEndpoint);
+            this.Miner = new Api.GethRpcMinerApi(rpcEndpoint);
+            this.Net = new Api.GethRpcNetApi(rpcEndpoint);
+            this.Shh = new Api.GethRpcShhApi(rpcEndpoint);
+            this.Personal = new Api.GethRpcPersonalApi(rpcEndpoint);
             this.Web3 = new Api.GethRpcWeb3Api(rpcEndpoint);
+            this.Db = new Api.GethRpcDbApi(rpcEndpoint);
         }
         
         /// <summary>
@@ -57,6 +58,12 @@ namespace EthereumGethRpc
         /// Access to PERSONAL api of Geth
         /// </summary>
         public EthereumGethRpc.Api.GethRpcPersonalApi Personal { get; private set; }
+        
+        /// <summary>
+        /// Access to DB api of Geth
+        /// </summary>
+        public EthereumGethRpc.Api.GethRpcDbApi Db { get; private set; }
+
 
 
         /// <summary>

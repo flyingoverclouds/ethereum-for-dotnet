@@ -20,13 +20,13 @@ namespace EthereumGethRpc.Api
 
         }
 
-        public async Task<string> GetVersion()
+        public async Task<string> GetVersionAsync()
         {
             string rpcReq = BuildRpcRequest("net_version");
             return await ExecuteRpcRequestAsync(rpcReq);
         }
 
-        public async Task<bool> IsListening()
+        public async Task<bool> IsListeningAsync()
         {
             string rpcReq = BuildRpcRequest("net_listening");
             var result = await ExecuteRpcRequestAsync<bool>(rpcReq);
@@ -37,7 +37,7 @@ namespace EthereumGethRpc.Api
         /// Return peer count 
         /// </summary>
         /// <returns></returns>
-        public async Task<Int64> GetPeerCount()
+        public async Task<Int64> GetPeerCountAsync()
         {
             // TODO : implement bignumber 
 
