@@ -29,9 +29,9 @@ namespace EthereumGethRpc.Api
         {
             string rpcReq;
             if (threadCount <= 0)
-                rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"miner_start\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+                rpcReq = BuildRpcRequest("miner_start");
             else
-                rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"miner_start\",\"params\":[ " + threadCount + " ],\"id\":" + GetNewId().ToString() + "}";
+                rpcReq = BuildRpcRequest("miner_start",threadCount);
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
@@ -42,7 +42,7 @@ namespace EthereumGethRpc.Api
         /// <returns></returns>
         public async Task<bool> StopAsync()
         {
-            string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"miner_stop\",\"params\":[],\"id\":" + GetNewId().ToString() + "}";
+            string rpcReq = BuildRpcRequest("miner_stop");
             var res = await ExecuteRpcRequestAsync<bool>(rpcReq);
             return res;
         }
