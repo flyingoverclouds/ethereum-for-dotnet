@@ -52,5 +52,20 @@ namespace EthereumGethRpc.Api
             string rpcReq = BuildRpcRequest("admin_setSolc", solidityCompilerLocation);
             return await ExecuteRpcRequestAsync<bool>(rpcReq);
         }
+
+        /// <summary>
+        /// Start JSON RPC listening on the GETH instance
+        /// </summary>
+        /// <param name="host">network interface to open the listener socket on (defaults to "localhost")</param>
+        /// <param name="port">network port to open the listener socket on (defaults to 8545)</param>
+        /// <param name="cors">cross-origin resource sharing header to use (defaults to "")</param>
+        /// <param name="apis">API modules to offer over this interface (defaults to "eth,net,web3")</param>
+        /// <returns>true if opened and listening, false otherwise</returns>
+        public async Task<bool> StartRpcAsync(string host="localhost",string port="8545",string cors="",string apis = "eth,net,web3")
+        {
+            string rpcReq = BuildRpcRequest("admin_startRpc", host, port, cors, apis);
+
+            return await ExecuteRpcRequestAsync<bool>(rpcReq);
+        }
     }
 }
