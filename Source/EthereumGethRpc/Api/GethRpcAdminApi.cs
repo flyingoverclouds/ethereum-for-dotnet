@@ -64,7 +64,6 @@ namespace EthereumGethRpc.Api
         public async Task<bool> StartRpcAsync(string host="localhost",string port="8545",string cors="",string apis = "eth,net,web3")
         {
             string rpcReq = BuildRpcRequest("admin_startRpc", host, port, cors, apis);
-
             return await ExecuteRpcRequestAsync<bool>(rpcReq);
         }
     }
