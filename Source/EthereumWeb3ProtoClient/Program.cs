@@ -18,11 +18,11 @@ namespace EthereumWeb3ProtoClient
         static void Main(string[] args)
         {
             var prog = new Program();
-            prog.GethRpcTestRun().GetAwaiter().GetResult();
+            //prog.GethRpcTestRun().GetAwaiter().GetResult();
 
             //prog.SingleAccountTransfer().GetAwaiter().GetResult();
 
-            //prog.DeployContract().GetAwaiter().GetResult();
+            prog.DeployContract().GetAwaiter().GetResult();
 
             //prog.GetTransactionData().GetAwaiter().GetResult();
             

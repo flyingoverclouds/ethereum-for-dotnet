@@ -37,76 +37,126 @@ namespace Ethereum4dotnetSample
 }
 ```
 
-## Wrapped calls GETH JSON RPC
+## GETH JSON RPC Wrapped calls 
 * **Supported** : Yes if .net wrapping method present, otherwise no
 * **Implemented** : Call to rpc method is implemented : yes, partial (see intellisense comment), no
 * **Tested** : Call has been tested (see test sample program)
 
-| API | RPC method name | C# method name | Supported | Implemented | Tested |
-|-----|-----------------|----------------|-----------|-------------|--------|
-| admin | admin_datadir | .Admin.GetDataDirAsync(...) | yes | yes | yes |
-| admin | admin_addPeer |  |  |  |  |
-| admin | admin_nodeInfo |  |  |  |  |
-| admin | admin_peers |  |  |  |  |
-| admin | admin_setSolc |  |  |  |  |
-| admin | admin_startRPC |  |  |  |  |
-| admin | admin_startWS |  |  |  |  |
-| admin | admin_stopRPC |  |  |  |  |
-| admin | admin_stopWS |  |  |  |  |
-| db | db_getString | .DbGetStringAsync.(...) | yes | yes | no |
-| db | db_putString | .Db.PutStringSync(...) | yes | yes | no |
-| db | db_getHex | .Db.GetHexAsync(...) | yes | yes | no |
-| db | db_putHex | .Db.PutHexAsync(...) | yes | yes | no |
+***API** : admin , db , debug , eth , miner , net , personal , shh , txpool , web3*
 
-| debug | debug_backtraceAt |  |  |  |  |
-| debug | debug_blockProfile |  |  |  |  |
-| debug | debug_cpuProfile |  |  |  |  |
-| debug | debug_dumpBlock |  |  |  |  |
-| debug | debug_gcStats |  |  |  |  |
-| debug | debug_getBlockRlp |  |  |  |  |
-| debug | debug_goTrace |  |  |  |  |
-| debug | debug_memStats |  |  |  |  |
-| debug | debug_seedHashsign |  |  |  |  |
-| debug | debug_setBlockProfileRate |  |  |  |  |
-| debug | debug_setHead |  |  |  |  |
-| debug | debug_stacks |  |  |  |  |
-| debug | debug_startCPUProfile |  |  |  |  |
-| debug | debug_startGoTrace |  |  |  |  |
-| debug | debug_stopCPUProfile |  |  |  |  |
-| debug | debug_stopGoTrace |  |  |  |  |
-| debug | debug_traceBlock |  |  |  |  |
-| debug | debug_traceBlockByNumber |  |  |  |  |
-| debug | debug_traceBlockByHash |  |  |  |  |
-| debug | debug_traceBlockFromFile |  |  |  |  |
-| debug | debug_traceTransaction |  |  |  |  |
-| debug | debug_verbosity |  |  |  |  |
-| debug | debug_vmodule |  |  |  |  |
-| debug | debug_writeBlockProfile |  |  |  |  |
-| debug | debug_writeMemProfile |  |  |  |  |
-| eth  TO COMPLETE | eth_ | .Eth.Async(...) | yes | yes | no |
-| miner | miner_makeDAG | | no |  |  |
-| miner | miner_start | .Miner.StartAsync(...) | yes | yes | yes |
-| miner | miner_startAutoDAG | | no |  |  |
-| miner | miner_setExtra | | no |  |  |
-| miner | miner_setGasPrice | | no |  |  |
-| miner | miner_stop | .Miner.StopAsync(...) | yes | yes | yes |
-| miner | miner_stopAutoDAG | | no |  |  |
-| net | net_version | .Net.GetVersionAsync(...) | yes | yes | yes |
-| net | net_listening | .Net.IsListeningAsync(...) | yes | partial | no |
-| net | net_peerCount | .Net.GetPeerCountAsync(...) | yes | yes | no |
-| personal | personal_listAccounts | .Personal.ListAccountsAsync(...) | yes | yes | yes |
-| personal | personal_ecRecover |  | no |  |  |
-| personal | personal_importRawKey | | no |  |  |
-| personal | personal_newAccount |  | no |  |  |
-| personal | personal_lockAccount |  | no |  |  |
-| personal | personal_unlockAccount | .Personal.UnlockAccountAsync(...) | yes | yes | yes |
-| personal | personal_sendTransaction | .Personal.SendTransactionAsync(...) | yes | partial | yes |
-| personal | personal_sign | .Personal.SignAsync(...) | yes | yes | no |
-| shh | shh_ | .Shh.Async(...) | yes | yes | no |
-| txpool | txpool_content |  | no |  | |
-| txpool | txpool_inspect |  | no |  |  |
-| txpool | txpool_status |  | no |  |  |
-| web3 | web3_ | .Web.Async(...) | yes | yes | no |
+| RPC method name | C# method name | Supported | Implemented | Tested |
+|-----------------|----------------|-----------|-------------|--------|
+| admin_datadir | .Admin.GetDataDirAsync(...) | yes | yes | yes |
+| admin_addPeer |  |  |  |  |
+| admin_nodeInfo |  |  |  |  |
+| admin_peers |  |  |  |  |
+| admin_setSolc |  |  |  |  |
+| admin_startRPC |  |  |  |  |
+| admin_startWS |  |  |  |  |
+| admin_stopRPC |  |  |  |  |
+| admin_stopWS |  |  |  |  |
+| db_getString | .DbGetStringAsync.(...) | yes | yes | no |
+| db_putString | .Db.PutStringSync(...) | yes | yes | no |
+| db_getHex | .Db.GetHexAsync(...) | yes | yes | no |
+| db_putHex | .Db.PutHexAsync(...) | yes | yes | no |
+| debug_backtraceAt |  |  |  |  |
+| debug_blockProfile |  |  |  |  |
+| debug_cpuProfile |  |  |  |  |
+| debug_dumpBlock |  |  |  |  |
+| debug_gcStats |  |  |  |  |
+| debug_getBlockRlp |  |  |  |  |
+| debug_goTrace |  |  |  |  |
+| debug_memStats |  |  |  |  |
+| debug_seedHashsign |  |  |  |  |
+| debug_setBlockProfileRate |  |  |  |  |
+| debug_setHead |  |  |  |  |
+| debug_stacks |  |  |  |  |
+| debug_startCPUProfile |  |  |  |  |
+| debug_startGoTrace |  |  |  |  |
+| debug_stopCPUProfile |  |  |  |  |
+| debug_stopGoTrace |  |  |  |  |
+| debug_traceBlock |  |  |  |  |
+| debug_traceBlockByNumber |  |  |  |  |
+| debug_traceBlockByHash |  |  |  |  |
+| debug_traceBlockFromFile |  |  |  |  |
+| debug_traceTransaction |  |  |  |  |
+| debug_verbosity |  |  |  |  |
+| debug_vmodule |  |  |  |  |
+| debug_writeBlockProfile |  |  |  |  |
+| debug_writeMemProfile |  |  |  |  |
+| eth_protocolVersion | .Eth.Async(...) | yes |  | no |
+| eth_syncing | .Eth.Async(...) | yes |  | no |
+| eth_coinbase | .Eth.Async(...) | yes |  | no |
+| eth_mining | .Eth.Async(...) | yes |  | no |
+| eth_hashrate | .Eth.Async(...) | yes |  | no |
+| eth_gasPrice | .Eth.Async(...) | yes |  | no |
+| eth_accounts | .Eth.Async(...) | yes |  | no |
+| eth_blockNumber | .Eth.Async(...) | yes |  | no |
+| eth_getBalance | .Eth.Async(...) | yes |  | no |
+| eth_getStorateAt | .Eth.Async(...) | yes |  | no |
+| eth_getTransactionCount | .Eth.Async(...) | yes |  | no |
+| eth_getBlockTransactionCountByHash | .Eth.Async(...) | yes |  | no |
+| eth_getBlockTransactionCountByNumber | .Eth.Async(...) | yes |  | no |
+| eth_getUncleCountbyBlockHash | .Eth.Async(...) | yes |  | no |
+| eth_getUncleCountByBlockNumber | .Eth.Async(...) | yes |  | no |
+| eth_getCode | .Eth.Async(...) | yes |  | no |
+| eth_sign | .Eth.Async(...) | yes |  | no |
+| eth_sendTransaction | .Eth.Async(...) | yes |  | no |
+| eth_sendRawTransaction | .Eth.Async(...) | yes |  | no |
+| eth_call | .Eth.Async(...) | yes |  | no |
+| eth_estimateGas | .Eth.Async(...) | yes |  | no |
+| eth_getBlockByHash | .Eth.Async(...) | yes |  | no |
+| eth_getBlockByNumber | .Eth.Async(...) | yes |  | no |
+| eth_getTransactionByHash | .Eth.Async(...) | yes |  | no |
+| eth_getTransactionByBlockHashAndIndex | .Eth.Async(...) | yes |  | no |
+| eth_getTransactionByBlockNuimberAndIndex | .Eth.Async(...) | yes |  | no |
+| eth_getCompilers | .Eth.Async(...) | yes |  | no |
+| eth_compileLLL | .Eth.Async(...) | yes |  | no |
+| eth_compileSolidity | .Eth.Async(...) | yes |  | no |
+| eth_compileSerpent | .Eth.Async(...) | yes |  | no |
+| eth_newFilter | .Eth.Async(...) | yes |  | no |
+| eth_newBlockFilter | .Eth.Async(...) | yes |  | no |
+| eth_newPendingTransactionFilter | .Eth.Async(...) | yes |  | no |
+| eth_uninstallFilter | .Eth.Async(...) | yes |  | no |
+| eth_getFilterChanges | .Eth.Async(...) | yes |  | no |
+| eth_getFilterLogs | .Eth.Async(...) | yes |  | no |
+| eth_getLogs | .Eth.Async(...) | yes |  | no |
+| eth_getWork | .Eth.Async(...) | yes |  | no |
+| eth_submitWork | .Eth.Async(...) | yes |  | no |
+| eth_submitHashrate | .Eth.Async(...) | yes |  | no |
+| miner_makeDAG | | no |  |  |
+| miner_start | .Miner.StartAsync(...) | yes | yes | yes |
+| miner_startAutoDAG | | no |  |  |
+| miner_setExtra | | no |  |  |
+| miner_setGasPrice | | no |  |  |
+| miner_stop | .Miner.StopAsync(...) | yes | yes | yes |
+| miner_stopAutoDAG | | no |  |  |
+| net_version | .Net.GetVersionAsync(...) | yes | yes | yes |
+| net_listening | .Net.IsListeningAsync(...) | yes | partial | no |
+| net_peerCount | .Net.GetPeerCountAsync(...) | yes | yes | no |
+| personal_listAccounts | .Personal.ListAccountsAsync(...) | yes | yes | yes |
+| personal_ecRecover |  | no |  |  |
+| personal_importRawKey | | no |  |  |
+| personal_newAccount |  | no |  |  |
+| personal_lockAccount |  | no |  |  |
+| personal_unlockAccount | .Personal.UnlockAccountAsync(...) | yes | yes | yes |
+| personal_sendTransaction | .Personal.SendTransactionAsync(...) | yes | partial | yes |
+| personal_sign | .Personal.SignAsync(...) | yes | yes | no |
+| shh_version | .Shh.Async(...) | yes | yes | no |
+| shh_neWIdentity | .Shh.Async(...) | yes | yes | no |
+| shh_hashIdentity | .Shh.Async(...) | yes | yes | no |
+| shh_newGroup | .Shh.Async(...) | yes | yes | no |
+| shh_addToGroup | .Shh.Async(...) | yes | yes | no |
+| shh_newFilter | .Shh.Async(...) | yes | yes | no |
+| shh_uninstallFilter | .Shh.Async(...) | yes | yes | no |
+| shh_getFilterChanges | .Shh.Async(...) | yes | yes | no |
+| shh_getMessages | .Shh.Async(...) | yes | yes | no |
+| txpool_content |  | no |  | |
+| txpool_inspect |  | no |  |  |
+| txpool_status |  | no |  |  |
+| web3_clientVersion | .Web.Async(...) | yes | yes | no |
+| web3_sha3 | .Web.Async(...) | yes | yes | no |
 
 
+From [https://github.com/ethereum/go-ethereum/wiki/Management-APIs](https://github.com/ethereum/go-ethereum/wiki/Management-APIs) and [https://github.com/ethereum/wiki/wiki/JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC)
 
