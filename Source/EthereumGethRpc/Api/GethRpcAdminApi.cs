@@ -66,5 +66,42 @@ namespace EthereumGethRpc.Api
             string rpcReq = BuildRpcRequest("admin_startRpc", host, port, cors, apis);
             return await ExecuteRpcRequestAsync<bool>(rpcReq);
         }
+
+        /// <summary>
+        /// Stop the JSON? RPC listener on the GETH Instance
+        /// </summary>
+        /// <returns>true if stopped, false otherwise</returns>
+        public async Task<bool> StopRpcAsync()
+        {
+            string rpcReq = BuildRpcRequest("admin_stopRpc");
+            return await ExecuteRpcRequestAsync<bool>(rpcReq);
+        }
+
+
+        /// <summary>
+        /// starts an WebSocket based JSON RPC API webserver on the GETH instance
+        /// </summary>
+        /// <param name="host">network interface to open the listener socket on (defaults to  "localhost" )</param>
+        /// <param name="port">network port to open the listener socket on (defaults to  8546 )</param>
+        /// <param name="cors">cross-origin resource sharing header to use (defaults to  "" )</param>
+        /// <param name="apis">API modules to offer over this interface (defaults to  "eth,net,web3" )</param>
+        /// <returns></returns>
+        public async Task<bool> StartWsAsync(string host = "localhost", string port = "8546", string cors = "", string apis = "eth,net,web3")
+        {
+            string rpcReq = BuildRpcRequest("admin_startWS", host, port, cors, apis);
+            return await ExecuteRpcRequestAsync<bool>(rpcReq);
+        }
+
+
+        /// <summary>
+        /// Stop the websocket listener on the GETH Instance
+        /// </summary>
+        /// <returns>true if stopped, false otherwise</returns>
+        public async Task<bool> StopWsAsync()
+        {
+            string rpcReq = BuildRpcRequest("admin_stopWS");
+            return await ExecuteRpcRequestAsync<bool>(rpcReq);
+        }
+
     }
 }

@@ -51,8 +51,8 @@ namespace Ethereum4dotnetSample
 | admin_nodeInfo |  |  |  |  |
 | admin_peers |  |  |  |  |
 | admin_setSolc |  |  |  |  |
-| admin_startRPC |  |  |  |  |
-| admin_startWS |  |  |  |  |
+| admin_startRPC |.Admin.StartRpcAsync(...)  | yes | yesy | no |
+| admin_startWS | .Admin.StartWsAsync(...) | yes | yes | no |
 | admin_stopRPC |  |  |  |  |
 | admin_stopWS |  |  |  |  |
 | db_getString | .DbGetStringAsync.(...) | yes | yes | no |
