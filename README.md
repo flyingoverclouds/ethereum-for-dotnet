@@ -47,7 +47,7 @@ namespace Ethereum4dotnetSample
 | RPC method name | C# method name | Supported | Implemented | Tested |
 |-----------------|----------------|-----------|-------------|--------|
 | admin_datadir | .Admin.GetDataDirAsync(...) | yes | yes | yes |
-| admin_addPeer |  |  |  |  |
+| admin_addPeer | .Admin.AddPeedAsync(...) | yes | yes | no |
 | admin_nodeInfo |  |  |  |  |
 | admin_peers |  |  |  |  |
 | admin_setSolc |  |  |  |  |
@@ -156,6 +156,7 @@ namespace Ethereum4dotnetSample
 | txpool_status |  | no |  |  |
 | web3_clientVersion | .Web.Async(...) | yes | yes | no |
 | web3_sha3 | .Web.Async(...) | yes | yes | no |
+
 
 
 From [https://github.com/ethereum/go-ethereum/wiki/Management-APIs](https://github.com/ethereum/go-ethereum/wiki/Management-APIs) and [https://github.com/ethereum/wiki/wiki/JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC)
