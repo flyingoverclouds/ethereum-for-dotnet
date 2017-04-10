@@ -26,6 +26,7 @@ namespace EthereumGethRpc
             this.Personal = new Api.GethRpcPersonalApi(rpcEndpoint);
             this.Web3 = new Api.GethRpcWeb3Api(rpcEndpoint);
             this.Db = new Api.GethRpcDbApi(rpcEndpoint);
+            this.Debug = new Api.GethRpcDebugApi(rpcEndpoint);
         }
         
         /// <summary>
@@ -70,6 +71,12 @@ namespace EthereumGethRpc
         /// Access to WEB3 api of Geth
         /// </summary>
         public EthereumGethRpc.Api.GethRpcWeb3Api Web3 { get; private set; }
+
+        /// <summary>
+        /// Access to DEBUG api of Geth
+        /// </summary>
+        public EthereumGethRpc.Api.GethRpcDebugApi Debug { get; private set; }
+
 
         /// <summary>
         /// Return activated API module with version
