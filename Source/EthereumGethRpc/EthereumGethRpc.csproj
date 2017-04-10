@@ -49,6 +49,8 @@
     <Compile Include="Api\GethRpcWeb3Api.cs" />
     <Compile Include="DataModel\Abi.cs" />
     <Compile Include="DataModel\Block.cs" />
+    <Compile Include="DataModel\NodeInfo.cs" />
+    <Compile Include="DataModel\PeerInfo.cs" />
     <Compile Include="EthereumHelperExtension.cs" />
     <Compile Include="Api\GethRpcShhApi.cs" />
     <Compile Include="Api\GethRpcNetApi.cs" />

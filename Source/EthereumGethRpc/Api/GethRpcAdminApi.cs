@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EthereumGethRpc.DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -101,6 +102,26 @@ namespace EthereumGethRpc.Api
         {
             string rpcReq = BuildRpcRequest("admin_stopWS");
             return await ExecuteRpcRequestAsync<bool>(rpcReq);
+        }
+
+        /// <summary>
+        ///    NOT IMPLEMENTED : Throw NotImplementedException
+        /// return general information about the geth node instance + specific information per supported protocol. 
+        /// </summary>
+        /// <returns>NodeInfo object</returns>
+        public async Task<NodeInfo> GetNodeInfoAsync()
+        {
+            throw new NotImplementedException("admin_nodeInfo call not implemented");
+        }
+
+        /// <summary>
+        ///    NOT IMPLEMENTED : Throw NotImplementedException
+        /// return general information about connected nodes + specific information per supported protocol. 
+        /// </summary>
+        /// <returns>array of PeerInfo object</returns>
+        public async Task<PeerInfo[]> GetPeersAsync()
+        {
+            throw new NotImplementedException("admin_peers call not implemented");
         }
 
     }

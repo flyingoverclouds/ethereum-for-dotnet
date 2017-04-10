@@ -39,7 +39,7 @@ namespace Ethereum4dotnetSample
 
 ## GETH JSON RPC Wrapped calls 
 * **Supported** : Yes if .net wrapping method present, otherwise no
-* **Implemented** : Call to rpc method is implemented : yes, partial (see intellisense comment), no
+* **Implemented** : Call to rpc method is implemented : yes, partial (see intellisense comment), no (=throw NotImplementException)
 * **Tested** : Call has been tested (see test sample program)
 
 ***API** : admin , db , debug , eth , miner , net , personal , shh , txpool , web3*
@@ -48,13 +48,13 @@ namespace Ethereum4dotnetSample
 |-----------------|----------------|-----------|-------------|--------|
 | admin_datadir | .Admin.GetDataDirAsync(...) | yes | yes | yes |
 | admin_addPeer | .Admin.AddPeedAsync(...) | yes | yes | no |
-| admin_nodeInfo |  |  |  |  |
-| admin_peers |  |  |  |  |
-| admin_setSolc |  |  |  |  |
-| admin_startRPC |.Admin.StartRpcAsync(...)  | yes | yesy | no |
+| admin_nodeInfo | .Admin.GetNodeInfoAsync(...) | yes | no | no |
+| admin_peers | .Admin.GetPeersAsync(...) | yes | no | yes |
+| admin_setSolc | .Admin.SetSolcAsync(...) | yes | yes | no |
+| admin_startRPC |.Admin.StartRpcAsync(...)  | yes | yes | no |
 | admin_startWS | .Admin.StartWsAsync(...) | yes | yes | no |
-| admin_stopRPC |  |  |  |  |
-| admin_stopWS |  |  |  |  |
+| admin_stopRPC | .Admin.StopRpcAsync(...) | yes | yes | no |
+| admin_stopWS | .Admin.StopWsAsync(...) | yesy | yes | no |
 | db_getString | .DbGetStringAsync.(...) | yes | yes | no |
 | db_putString | .Db.PutStringSync(...) | yes | yes | no |
 | db_getHex | .Db.GetHexAsync(...) | yes | yes | no |
