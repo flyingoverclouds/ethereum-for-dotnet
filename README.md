@@ -59,31 +59,31 @@ namespace Ethereum4dotnetSample
 | db_putString | .Db.PutStringSync(...) | yes | yes | no |
 | db_getHex | .Db.GetHexAsync(...) | yes | yes | no |
 | db_putHex | .Db.PutHexAsync(...) | yes | yes | no |
-| debug_backtraceAt |  |  |  |  |
-| debug_blockProfile |  |  |  |  |
-| debug_cpuProfile |  |  |  |  |
-| debug_dumpBlock |  |  |  |  |
-| debug_gcStats |  |  |  |  |
-| debug_getBlockRlp |  |  |  |  |
-| debug_goTrace |  |  |  |  |
-| debug_memStats |  |  |  |  |
-| debug_seedHashsign |  |  |  |  |
-| debug_setBlockProfileRate |  |  |  |  |
-| debug_setHead |  |  |  |  |
-| debug_stacks |  |  |  |  |
-| debug_startCPUProfile |  |  |  |  |
-| debug_startGoTrace |  |  |  |  |
-| debug_stopCPUProfile |  |  |  |  |
-| debug_stopGoTrace |  |  |  |  |
-| debug_traceBlock |  |  |  |  |
-| debug_traceBlockByNumber |  |  |  |  |
-| debug_traceBlockByHash |  |  |  |  |
-| debug_traceBlockFromFile |  |  |  |  |
-| debug_traceTransaction |  |  |  |  |
-| debug_verbosity |  |  |  |  |
-| debug_vmodule |  |  |  |  |
-| debug_writeBlockProfile |  |  |  |  |
-| debug_writeMemProfile |  |  |  |  |
+| debug_backtraceAt | .Debug. |  |  |  |
+| debug_blockProfile | .Debug. |  |  |  |
+| debug_cpuProfile | .Debug. |  |  |  |
+| debug_dumpBlock | .Debug. |  |  |  |
+| debug_gcStats | .Debug. |  |  |  |
+| debug_getBlockRlp | .Debug. |  |  |  |
+| debug_goTrace | .Debug. |  |  |  |
+| debug_memStats | .Debug. |  |  |  |
+| debug_seedHashsign |.Debug. |  |  |  |
+| debug_setBlockProfileRate | .Debug. |  |  |  |
+| debug_setHead | .Debug. |  |  |  |
+| debug_stacks | .Debug. |  |  |  |
+| debug_startCPUProfile | .Debug. |  |  |  |
+| debug_startGoTrace | .Debug. |  |  |  |
+| debug_stopCPUProfile | .Debug. |  |  |  |
+| debug_stopGoTrace | .Debug. |  |  |  |
+| debug_traceBlock | .Debug. |  |  |  |
+| debug_traceBlockByNumber |.Debug.  |  |  |  |
+| debug_traceBlockByHash | .Debug. |  |  |  |
+| debug_traceBlockFromFile | .Debug. |  |  |   |
+| debug_traceTransaction | .Debug. |  |  |  |
+| debug_verbosity |.Debug.  |  |  |  |
+| debug_vmodule | .Debug. |  |  |  |
+| debug_writeBlockProfile | .Debug. |  |  |  |
+| debug_writeMemProfile |.Debug.  |  |  |  |
 | eth_protocolVersion | .Eth.Async(...) | yes |  | no |
 | eth_syncing | .Eth.Async(...) | yes |  | no |
 | eth_coinbase | .Eth.Async(...) | yes |  | no |
