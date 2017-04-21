@@ -84,46 +84,49 @@ namespace Ethereum4dotnetSample
 | debug_vmodule | .Debug. |  |  |  |
 | debug_writeBlockProfile | .Debug. |  |  |  |
 | debug_writeMemProfile |.Debug.  |  |  |  |
-| eth_protocolVersion | .Eth.Async(...) | yes |  | no |
-| eth_syncing | .Eth.Async(...) | yes |  | no |
-| eth_coinbase | .Eth.Async(...) | yes |  | no |
-| eth_mining | .Eth.Async(...) | yes |  | no |
-| eth_hashrate | .Eth.Async(...) | yes |  | no |
-| eth_gasPrice | .Eth.Async(...) | yes |  | no |
-| eth_accounts | .Eth.Async(...) | yes |  | no |
-| eth_blockNumber | .Eth.Async(...) | yes |  | no |
-| eth_getBalance | .Eth.Async(...) | yes |  | no |
-| eth_getStorateAt | .Eth.Async(...) | yes |  | no |
-| eth_getTransactionCount | .Eth.Async(...) | yes |  | no |
-| eth_getBlockTransactionCountByHash | .Eth.Async(...) | yes |  | no |
-| eth_getBlockTransactionCountByNumber | .Eth.Async(...) | yes |  | no |
-| eth_getUncleCountbyBlockHash | .Eth.Async(...) | yes |  | no |
-| eth_getUncleCountByBlockNumber | .Eth.Async(...) | yes |  | no |
-| eth_getCode | .Eth.Async(...) | yes |  | no |
-| eth_sign | .Eth.Async(...) | yes |  | no |
-| eth_sendTransaction | .Eth.Async(...) | yes |  | no |
-| eth_sendRawTransaction | .Eth.Async(...) | yes |  | no |
-| eth_call | .Eth.Async(...) | yes |  | no |
-| eth_estimateGas | .Eth.Async(...) | yes |  | no |
-| eth_getBlockByHash | .Eth.Async(...) | yes |  | no |
-| eth_getBlockByNumber | .Eth.Async(...) | yes |  | no |
-| eth_getTransactionByHash | .Eth.Async(...) | yes |  | no |
-| eth_getTransactionByBlockHashAndIndex | .Eth.Async(...) | yes |  | no |
-| eth_getTransactionByBlockNuimberAndIndex | .Eth.Async(...) | yes |  | no |
-| eth_getCompilers | .Eth.Async(...) | yes |  | no |
-| eth_compileLLL | .Eth.Async(...) | yes |  | no |
-| eth_compileSolidity | .Eth.Async(...) | yes |  | no |
-| eth_compileSerpent | .Eth.Async(...) | yes |  | no |
-| eth_newFilter | .Eth.Async(...) | yes |  | no |
-| eth_newBlockFilter | .Eth.Async(...) | yes |  | no |
-| eth_newPendingTransactionFilter | .Eth.Async(...) | yes |  | no |
-| eth_uninstallFilter | .Eth.Async(...) | yes |  | no |
-| eth_getFilterChanges | .Eth.Async(...) | yes |  | no |
-| eth_getFilterLogs | .Eth.Async(...) | yes |  | no |
-| eth_getLogs | .Eth.Async(...) | yes |  | no |
-| eth_getWork | .Eth.Async(...) | yes |  | no |
-| eth_submitWork | .Eth.Async(...) | yes |  | no |
-| eth_submitHashrate | .Eth.Async(...) | yes |  | no |
+| eth_protocolVersion | .Eth.GetProtocolVersionAsync(...) | yes | yes | yes |
+| eth_syncing | .Eth.SyncingStatusAsync(...) | yes | yes | no |
+| eth_coinbase | .Eth.GetCoinbaseAddressAsync(...) | yes | yes | yes |
+| eth_mining | .Eth.IsMiningAsync(...) | yes | yes | yes |
+| eth_hashrate | .Eth.GetHashRateAsync(...) | yes | yes | yes |
+| eth_gasPrice | .Eth.GetGasPriceAsync(...) | yes | yes | yes |
+| eth_accounts | .Eth.GetAccountsAsync(...) | yes | yes | yes |
+| eth_blockNumber | .Eth.GetBlockNumberAsync(...) | yes | yes | yes |
+| eth_getBalance | .Eth.GetBalanceAsync(...) | yes | yes | yes |
+| eth_getStorateAt | .Eth.GetStorageAtAsync(...) | yes | yes | no |
+| eth_getTransactionCount | .Eth.GetTransactionCountAsync(...) | yes | yes | no |
+| eth_getBlockTransactionCountByHash | .Eth.GetBlockTransactionCountByHashAsync(...) | yes | yes | no |
+| eth_getBlockTransactionCountByNumber | .Eth.GetBlockTransactionCountByNumberAsync(...) | yes | yes | no |
+| eth_getUncleCountbyBlockHash | .Eth.GetUncleCountByBlockHashAsync(...) | yes | yes | no |
+| eth_getUncleCountByBlockNumber | .Eth.GetUncleCountByBlockNumberAsync(...) | yes | partial | no |
+| eth_getCode | .Eth.GetCodeAsync(...) | yes | yes | no |
+| eth_sign | .Eth.SignAsync(...) | yes | yes | no |
+| eth_sendTransaction | .Eth.SendTransactionAsync(...) | yes | yes | yes |
+| eth_getTransactionReceipt | .Eth.GetTransactionReceiptAsync(...) | yes | yes | yes |
+| eth_sendRawTransaction | .Eth.SendRawTransactionAsync(...) | yes | yes | no |
+| eth_call | .Eth.CallAsync(...) | yes | yes | no |
+| eth_estimateGas | .Eth.EstimateGasAsync(...) | yes | yes | no |
+| eth_getBlockByHash | .Eth.GetBlockByHashAsync(...) | yes | partial | no |
+| eth_getBlockByNumber | .Eth.GetBlockByNumberAsync(...) | yes | partial | no |
+| eth_getTransactionByHash | .Eth.GetTransactionByHashAsync(...) | yes | yes | yes |
+| eth_getTransactionByBlockHashAndIndex | .Eth.GetTransactionByBlockHashAndIndexAsync(...) | yes | yes | yes |
+| eth_getTransactionByBlockNumberAndIndex | .Eth.GetTransactionByBlockNumberAndIndexAsync(...) | yes | yes | no |
+| eth_getUncleByBlockHashAndIndex | .Eth.GetUncleByBlockHashAndIndexAsync(...) | yes | partial | no |
+| eth_getUncleByBlockNumberAndIndex | .Eth.GetUncleByBlockNumberAndIndexAsync(...) | yes | partial | no |
+| eth_getCompilers | .Eth.GetCompilersAsync(...) | yes | yes | yes |
+| eth_compileLLL | .Eth.CompileLLLAsync(...) | yes | yes | no |
+| eth_compileSolidity | .Eth.CompileSolidityAsync(...) | yes | yes | yes |
+| eth_compileSerpent | .Eth.CompileSerpentAsync(...) | yes | yes | no |
+| eth_newFilter | .Eth.NewFilterAsync(...) | yes | no | no |
+| eth_newBlockFilter | .Eth.NewBlockFilterAsync(...) | yes | yes | yes |
+| eth_newPendingTransactionFilter | .Eth.NewPendingTransactionFilterAsync(...) | yes | yes | no |
+| eth_uninstallFilter | .Eth.UninstallFilterAsync(...) | yes | yes | yes |
+| eth_getFilterChanges | .Eth.GetFilterChangesAsync(...) | yes | no  | no |
+| eth_getFilterLogs | .Eth.GetFilterLogsAsync(...) | yes | no | no |
+| eth_getLogs | .Eth.GetLogsAsync(...) | yes | no | no |
+| eth_getWork | .Eth.GetWorkAsync(...) | yes | partial | no |
+| eth_submitWork | .Eth.SubmitWorkAsync(...) | yes | yes | no |
+| eth_submitHashrate | .Eth.SubmitHashrateAsync(...) | yes | yes | no |
 | miner_makeDAG | | no |  |  |
 | miner_start | .Miner.StartAsync(...) | yes | yes | yes |
 | miner_startAutoDAG | | no |  |  |
@@ -142,15 +145,16 @@ namespace Ethereum4dotnetSample
 | personal_unlockAccount | .Personal.UnlockAccountAsync(...) | yes | yes | yes |
 | personal_sendTransaction | .Personal.SendTransactionAsync(...) | yes | partial | yes |
 | personal_sign | .Personal.SignAsync(...) | yes | yes | no |
-| shh_version | .Shh.Async(...) | yes | yes | no |
-| shh_neWIdentity | .Shh.Async(...) | yes | yes | no |
-| shh_hashIdentity | .Shh.Async(...) | yes | yes | no |
-| shh_newGroup | .Shh.Async(...) | yes | yes | no |
-| shh_addToGroup | .Shh.Async(...) | yes | yes | no |
-| shh_newFilter | .Shh.Async(...) | yes | yes | no |
-| shh_uninstallFilter | .Shh.Async(...) | yes | yes | no |
-| shh_getFilterChanges | .Shh.Async(...) | yes | yes | no |
-| shh_getMessages | .Shh.Async(...) | yes | yes | no |
+| shh_version | .Shh.GetVersionAsync(...) | yes | yes | no |
+| shh_post | .Shh.PostAsync(...) | yes | no | no |
+| shh_newIdentity | .Shh.NewIdentityAsync(...) | yes | yes | no |
+| shh_hashIdentity | .Shh.HasIdentityAsync(...) | yes | yes | no |
+| shh_newGroup | .Shh.NewGroupAsync(...) | yes | yes | no |
+| shh_addToGroup | .Shh.AddToGroupAsync(...) | yes | yes | no |
+| shh_newFilter | .Shh.NewFilterAsync(...) | yes | no | no |
+| shh_uninstallFilter | .Shh.UninstallFilterAsync(...) | yes | yes | no |
+| shh_getFilterChanges | .Shh.GetFilterChangesAsync(...) | yes | no | no |
+| shh_getMessages | .Shh.GetMessagesAsync(...) | yes | no | no |
 | txpool_content |  | no |  | |
 | txpool_inspect |  | no |  |  |
 | txpool_status |  | no |  |  |

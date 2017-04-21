@@ -64,7 +64,6 @@ namespace EthereumGethRpc.Api
         public async Task<string> NewIdentityAsync()
         {
             // TODO : to test
-            //string rpcReq = "{ \"jsonrpc\":\"2.0\",\"method\":\"shh_newIdentity\",\"params\":[ ],\"id\":" + GetNewId().ToString() + "}";
             string rpcReq = BuildRpcRequest("shh_newIdentity");
             var res = await ExecuteRpcRequestAsync<string>(rpcReq);
             return res;
