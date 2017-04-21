@@ -42,9 +42,11 @@ namespace Ethereum4dotnetSample
 * **Implemented** : Call to rpc method is implemented : yes, partial (see intellisense comment), no (=throw NotImplementException)
 * **Tested** : Call has been tested (see test sample program)
 
-***API** : admin , db , debug , eth , miner , net , personal , shh , txpool , web3*
+***API** : admin , db , debug , eth , miner , net , personal , shh , txpool , web3* 
 
-| RPC method name | C# method name | Supported | Implemented | Tested |
+***Columns** : S=Supported, I=Implemened, T=Tested*
+
+| RPC method name | C# method name | S | I | T |
 |-----------------|----------------|-----------|-------------|--------|
 | admin_datadir | .Admin.GetDataDirAsync(...) | yes | yes | yes |
 | admin_addPeer | .Admin.AddPeedAsync(...) | yes | yes | no |
@@ -59,31 +61,31 @@ namespace Ethereum4dotnetSample
 | db_putString | .Db.PutStringSync(...) | yes | yes | no |
 | db_getHex | .Db.GetHexAsync(...) | yes | yes | no |
 | db_putHex | .Db.PutHexAsync(...) | yes | yes | no |
-| debug_backtraceAt | .Debug. |  |  |  |
-| debug_blockProfile | .Debug. |  |  |  |
-| debug_cpuProfile | .Debug. |  |  |  |
-| debug_dumpBlock | .Debug. |  |  |  |
-| debug_gcStats | .Debug. |  |  |  |
-| debug_getBlockRlp | .Debug. |  |  |  |
-| debug_goTrace | .Debug. |  |  |  |
-| debug_memStats | .Debug. |  |  |  |
-| debug_seedHashsign |.Debug. |  |  |  |
-| debug_setBlockProfileRate | .Debug. |  |  |  |
-| debug_setHead | .Debug. |  |  |  |
-| debug_stacks | .Debug. |  |  |  |
-| debug_startCPUProfile | .Debug. |  |  |  |
-| debug_startGoTrace | .Debug. |  |  |  |
-| debug_stopCPUProfile | .Debug. |  |  |  |
-| debug_stopGoTrace | .Debug. |  |  |  |
-| debug_traceBlock | .Debug. |  |  |  |
-| debug_traceBlockByNumber |.Debug.  |  |  |  |
-| debug_traceBlockByHash | .Debug. |  |  |  |
-| debug_traceBlockFromFile | .Debug. |  |  |   |
-| debug_traceTransaction | .Debug. |  |  |  |
-| debug_verbosity |.Debug.  |  |  |  |
-| debug_vmodule | .Debug. |  |  |  |
-| debug_writeBlockProfile | .Debug. |  |  |  |
-| debug_writeMemProfile |.Debug.  |  |  |  |
+| debug_backtraceAt | .Debug. | no |  |  |
+| debug_blockProfile | .Debug. | no |  |  |
+| debug_cpuProfile | .Debug. | no |  |  |
+| debug_dumpBlock | .Debug. | no |  |  |
+| debug_gcStats | .Debug. | no |  |  |
+| debug_getBlockRlp | .Debug. | no |  |  |
+| debug_goTrace | .Debug. | no |  |  |
+| debug_memStats | .Debug. | no |  |  |
+| debug_seedHashsign |.Debug. | no |  |  |
+| debug_setBlockProfileRate | .Debug. | no |  |  |
+| debug_setHead | .Debug. | no |  |  |
+| debug_stacks | .Debug. | no |  |  |
+| debug_startCPUProfile | .Debug. | no |  |  |
+| debug_startGoTrace | .Debug. | no |  |  |
+| debug_stopCPUProfile | .Debug. | no |  |  |
+| debug_stopGoTrace | .Debug. | no |  |  |
+| debug_traceBlock | .Debug. | no |  |  |
+| debug_traceBlockByNumber |.Debug.  | no |  |  |
+| debug_traceBlockByHash | .Debug. | no |  |  |
+| debug_traceBlockFromFile | .Debug. | no |  |   |
+| debug_traceTransaction | .Debug. | no |  |  |
+| debug_verbosity |.Debug.  | no |  |  |
+| debug_vmodule | .Debug. | no |  |  |
+| debug_writeBlockProfile | .Debug. | no |  |  |
+| debug_writeMemProfile |.Debug.  | no |  |  |
 | eth_protocolVersion | .Eth.GetProtocolVersionAsync(...) | yes | yes | yes |
 | eth_syncing | .Eth.SyncingStatusAsync(...) | yes | yes | no |
 | eth_coinbase | .Eth.GetCoinbaseAddressAsync(...) | yes | yes | yes |
@@ -127,13 +129,13 @@ namespace Ethereum4dotnetSample
 | eth_getWork | .Eth.GetWorkAsync(...) | yes | partial | no |
 | eth_submitWork | .Eth.SubmitWorkAsync(...) | yes | yes | no |
 | eth_submitHashrate | .Eth.SubmitHashrateAsync(...) | yes | yes | no |
-| miner_makeDAG | | no |  |  |
+| miner_makeDAG |.Miner. | no |  |  |
 | miner_start | .Miner.StartAsync(...) | yes | yes | yes |
-| miner_startAutoDAG | | no |  |  |
-| miner_setExtra | | no |  |  |
-| miner_setGasPrice | | no |  |  |
+| miner_startAutoDAG |.Miner. | no |  |  |
+| miner_setExtra |.Miner. | no |  |  |
+| miner_setGasPrice | .Miner.| no |  |  |
 | miner_stop | .Miner.StopAsync(...) | yes | yes | yes |
-| miner_stopAutoDAG | | no |  |  |
+| miner_stopAutoDAG | .Miner. | no |  |  |
 | net_version | .Net.GetVersionAsync(...) | yes | yes | yes |
 | net_listening | .Net.IsListeningAsync(...) | yes | partial | no |
 | net_peerCount | .Net.GetPeerCountAsync(...) | yes | yes | no |
@@ -155,9 +157,9 @@ namespace Ethereum4dotnetSample
 | shh_uninstallFilter | .Shh.UninstallFilterAsync(...) | yes | yes | no |
 | shh_getFilterChanges | .Shh.GetFilterChangesAsync(...) | yes | no | no |
 | shh_getMessages | .Shh.GetMessagesAsync(...) | yes | no | no |
-| txpool_content |  | no |  | |
-| txpool_inspect |  | no |  |  |
-| txpool_status |  | no |  |  |
+| txpool_content |  | no | - | - |
+| txpool_inspect |  | no | - | - |
+| txpool_status |  | no | - | - |
 | web3_clientVersion | .Web.Async(...) | yes | yes | no |
 | web3_sha3 | .Web.Async(...) | yes | yes | no |
 

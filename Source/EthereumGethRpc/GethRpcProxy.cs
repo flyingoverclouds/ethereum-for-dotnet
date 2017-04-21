@@ -27,6 +27,7 @@ namespace EthereumGethRpc
             this.Web3 = new Api.GethRpcWeb3Api(rpcEndpoint);
             this.Db = new Api.GethRpcDbApi(rpcEndpoint);
             this.Debug = new Api.GethRpcDebugApi(rpcEndpoint);
+            this.TxPool = new Api.GethRpcShhApi(rpcEndpoint);
         }
         
         /// <summary>
@@ -76,6 +77,11 @@ namespace EthereumGethRpc
         /// Access to DEBUG api of Geth
         /// </summary>
         public EthereumGethRpc.Api.GethRpcDebugApi Debug { get; private set; }
+
+        /// <summary>
+        /// Access to TXPOOL api of Geth
+        /// </summary>
+        public EthereumGethRpc.Api.GethRpcTxpoolApi TxPool{ get; private set; }
 
 
         /// <summary>

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\GethRpcDbApi.cs" />
+    <Compile Include="Api\GethRpcTxpoolApi.cs" />
     <Compile Include="Api\GethRpcDebugApi.cs" />
     <Compile Include="DataModel\IGethApiObject.cs" />
     <Compile Include="Api\GethRpcPersonalApi.cs" />
