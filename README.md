@@ -1,10 +1,10 @@
 # ethereum-for-dotnet
 A simple, quick (but not dirty) library to use Ethereum Geth RPC endpoint from .Net
 
-It wraps GETH JsonRPC api in an easy to used C# library. 
+It wraps GETH JsonRPC api in an easy to use C# library. 
 
 I use VisualStudio 2017 to develop it.
-Both projects target .Net 4.5.2 but code should be easy to compile for an older version. 
+Both projects target .Net 4.5.2 but code should be easy to compile for an older version or for dotnetcore (specific project will come)
 
 
 ## EthereumWeb3ProtoClient
@@ -14,8 +14,8 @@ Actually the best entry point to find samples :)
 
 ## EthereumGethRpc
 The main project containing the library itself. 
-Take care : some API call are still not tested (implementation is just based on Geth RPC signature documentation)
-Inline & code comment explicitly mentionned if not tested.
+Take care : some API call are still not tested (implementation is just based on Geth RPC call signature documentation)
+Inline & code comment explicitly mentionned if not tested, or see above table.
 
 ### Usage (C#) : 
 ```csharp
@@ -42,7 +42,7 @@ namespace Ethereum4dotnetSample
 * **Implemented** : Call to rpc method is implemented : yes, partial (see intellisense comment), no (=throw NotImplementException)
 * **Tested** : Call has been tested (see test sample program)
 
-***API** : admin , db , debug , eth , miner , net , personal , shh , txpool , web3* 
+***Supported API** : admin , db , debug , eth , miner , net , personal , shh , txpool , web3* 
 
 ***Columns** : S=Supported, I=Implemened, T=Tested*
 
@@ -56,7 +56,7 @@ namespace Ethereum4dotnetSample
 | admin_startRPC |.Admin.StartRpcAsync(...)  | yes | yes | no |
 | admin_startWS | .Admin.StartWsAsync(...) | yes | yes | no |
 | admin_stopRPC | .Admin.StopRpcAsync(...) | yes | yes | no |
-| admin_stopWS | .Admin.StopWsAsync(...) | yesy | yes | no |
+| admin_stopWS | .Admin.StopWsAsync(...) | yes | yes | no |
 | db_getString | .DbGetStringAsync.(...) | yes | yes | no |
 | db_putString | .Db.PutStringSync(...) | yes | yes | no |
 | db_getHex | .Db.GetHexAsync(...) | yes | yes | no |
@@ -140,10 +140,10 @@ namespace Ethereum4dotnetSample
 | net_listening | .Net.IsListeningAsync(...) | yes | partial | no |
 | net_peerCount | .Net.GetPeerCountAsync(...) | yes | yes | no |
 | personal_listAccounts | .Personal.ListAccountsAsync(...) | yes | yes | yes |
-| personal_ecRecover |  | no |  |  |
-| personal_importRawKey | | no |  |  |
-| personal_newAccount |  | no |  |  |
-| personal_lockAccount |  | no |  |  |
+| personal_ecRecover | .Personal.| no |  |  |
+| personal_importRawKey | .Personal. | no |  |  |
+| personal_newAccount | .Personal. | no |  |  |
+| personal_lockAccount | .Personal. | no |  |  |
 | personal_unlockAccount | .Personal.UnlockAccountAsync(...) | yes | yes | yes |
 | personal_sendTransaction | .Personal.SendTransactionAsync(...) | yes | partial | yes |
 | personal_sign | .Personal.SignAsync(...) | yes | yes | no |
@@ -157,9 +157,9 @@ namespace Ethereum4dotnetSample
 | shh_uninstallFilter | .Shh.UninstallFilterAsync(...) | yes | yes | no |
 | shh_getFilterChanges | .Shh.GetFilterChangesAsync(...) | yes | no | no |
 | shh_getMessages | .Shh.GetMessagesAsync(...) | yes | no | no |
-| txpool_content |  | no | - | - |
-| txpool_inspect |  | no | - | - |
-| txpool_status |  | no | - | - |
+| txpool_content | .TxPool. | no | - | - |
+| txpool_inspect | .TxPool. | no | - | - |
+| txpool_status | .TxPool. | no | - | - |
 | web3_clientVersion | .Web.Async(...) | yes | yes | no |
 | web3_sha3 | .Web.Async(...) | yes | yes | no |
 

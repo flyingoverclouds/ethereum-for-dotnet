@@ -27,7 +27,7 @@ namespace EthereumGethRpc
             this.Web3 = new Api.GethRpcWeb3Api(rpcEndpoint);
             this.Db = new Api.GethRpcDbApi(rpcEndpoint);
             this.Debug = new Api.GethRpcDebugApi(rpcEndpoint);
-            this.TxPool = new Api.GethRpcShhApi(rpcEndpoint);
+            this.TxPool = new Api.GethRpcTxpoolApi(rpcEndpoint);
         }
         
         /// <summary>
