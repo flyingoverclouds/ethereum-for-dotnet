@@ -13,10 +13,17 @@ namespace EthereumWeb3ProtoClient
     {
         // Custoize this url to connect to your geth rpc endpoint
         const string GethEndpointUrl = "http://fdclbcvm.westeurope.cloudapp.azure.com:16969";
-
-
+        const string coinbaseAddress = "0xb0f360df1a8df50699191344e714204844da1c6f";
+        const string account1 = "0xdbb9a6624e931d8915521ac4bca2ea5aa746e06e";
+        const string account2 = "0xe498ef1d9b70f21d91d0f6f9ec0517a50682adb6";
+        static string password = "password";
         static void Main(string[] args)
         {
+            Console.Write("Accounts password : ");
+            var p = Console.ReadLine();
+            if (!string.IsNullOrEmpty(p))
+                password = p;
+
             var prog = new Program();
             //prog.GethRpcTestRun().GetAwaiter().GetResult();
 
@@ -38,12 +45,12 @@ namespace EthereumWeb3ProtoClient
             {
                 Uri gethProxy = new Uri(GethEndpointUrl);
 
-                var addressFrom = "0x12890d2cce102216644c59daE5baed380d84830c"; // PRECREDITED ACCOUNT IN DEV testchain CHAIN
-                var addressTo = "0x13f022d72158410433cbd66f5dd8bf6d2d129924";
-                var password = "password";
+                var addressFrom = coinbaseAddress; // PRECREDITED ACCOUNT IN DEV testchain CHAIN
+                var addressTo = account1;
+
                 string amount = "0x1000";
 
-                var jsonData = " { \"hash1\":\"hash2\"  }";
+                var jsonData = " { \"hash1\":\"" + DateTime.Now.ToString("u") + "\"  }";
                 var hexData = jsonData.ToHex();
 
                 

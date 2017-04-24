@@ -167,3 +167,11 @@ namespace Ethereum4dotnetSample
 
 From [https://github.com/ethereum/go-ethereum/wiki/Management-APIs](https://github.com/ethereum/go-ethereum/wiki/Management-APIs) and [https://github.com/ethereum/wiki/wiki/JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC)
 
+
+# Next steps & actions
+Help wanted / needed / welcome :)
+* **IPC support** :  supporting local IPC endpoint
+* **dotnetcore and xamarin support** : isolate platform/version dependencies to support all active .net based runtime, testing on linux & macos
+* **nuget packaging**
+
+
