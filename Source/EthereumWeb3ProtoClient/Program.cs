@@ -29,21 +29,37 @@ namespace EthereumWeb3ProtoClient
 
             //prog.SingleAccountTransfer().GetAwaiter().GetResult();
 
-            prog.DeployContract().GetAwaiter().GetResult();
+            //prog.DeployContract().GetAwaiter().GetResult();
+
+            prog.DisplayTxPool().GetAwaiter().GetResult();
 
             //prog.GetTransactionData().GetAwaiter().GetResult();
-            
+
             Console.WriteLine("\r\nPRESS ENTER TO TERMINATE");
             Console.ReadLine();
         }
 
+        async Task DisplayTxPool()
+        {
+            Console.WriteLine(">------- Contract Deployment :");
+            try
+            {
+                Uri gethNodeUrl = new Uri(GethEndpointUrl);
+                var gethProxy = new GethRpcProxy(gethNodeUrl);
+
+            }
+            catch (JsonRpcException jex)
+            {
+                Console.WriteLine("EXCEPTION: " + jex.ToString());
+            }
+        }
 
         async Task DeployContract()
         {
             Console.WriteLine(">------- Contract Deployment :");
             try
             {
-                Uri gethProxy = new Uri(GethEndpointUrl);
+                Uri gethProxyUrl = new Uri(GethEndpointUrl);
 
                 var addressFrom = coinbaseAddress; // PRECREDITED ACCOUNT IN DEV testchain CHAIN
                 var addressTo = account1;
@@ -54,11 +70,11 @@ namespace EthereumWeb3ProtoClient
                 var hexData = jsonData.ToHex();
 
                 
-                var web3 = new GethRpcProxy(gethProxy);
+                var gethProxy = new GethRpcProxy(gethProxyUrl);
 
-                var accountBalance = await web3.Eth.GetBalanceAsync(addressFrom);
+                var accountBalance = await gethProxy.Eth.GetBalanceAsync(addressFrom);
 
-                if (!await web3.Personal.UnlockAccountAsync(addressFrom, password))
+                if (!await gethProxy.Personal.UnlockAccountAsync(addressFrom, password))
                 {
                     Console.WriteLine("ERROR : unable to unlock " + addressFrom);
                     return;
@@ -71,7 +87,7 @@ namespace EthereumWeb3ProtoClient
                     Value = amount,
                     Data = hexData
                 };
-                var trxId = await web3.Eth.SendTransactionAsync(trx); 
+                var trxId = await gethProxy.Eth.SendTransactionAsync(trx); 
                 Console.WriteLine("Eth_SendTransaction: trxId :" + trxId);
                 TransactionReceipt receipt = null;
                 int attempt = 0;
@@ -79,7 +95,7 @@ namespace EthereumWeb3ProtoClient
                 {
                     await Task.Delay(500);
                     Console.Write($"attempt #{++attempt} to get receipt ..... \r");
-                    receipt = await web3.Eth.GetTransactionReceiptAsync(trxId);
+                    receipt = await gethProxy.Eth.GetTransactionReceiptAsync(trxId);
                     if (receipt != null)
                         break;
                 }
@@ -97,8 +113,8 @@ namespace EthereumWeb3ProtoClient
 
         async Task GetTransactionData()
         {
-            Uri web3NodeUrl = new Uri(GethEndpointUrl);
-            var gethProxy = new GethRpcProxy(web3NodeUrl);
+            Uri gethNodeUrl = new Uri(GethEndpointUrl);
+            var gethProxy = new GethRpcProxy(gethNodeUrl);
 
             string hash = "0xc7a7dc3718cf010d1ea0556751e760df6033e39106a71d4215d856bda063258b";
             string blockNum = "0x457";
@@ -125,7 +141,7 @@ namespace EthereumWeb3ProtoClient
             try
             {
                 // based on https://github.com/Nethereum/MultipleAccountTransferSample/blob/master/Program.cs
-                Uri gethProxy = new Uri(GethEndpointUrl);
+                Uri gethNodeUrl = new Uri(GethEndpointUrl);
 
 
                 var addressFrom = "0x12890d2cce102216644c59daE5baed380d84830c"; // PRECREDITED ACCOUNT IN DEV CHAIN
@@ -133,25 +149,25 @@ namespace EthereumWeb3ProtoClient
 
                 var password = "password";
 
-                var web3 = new GethRpcProxy(gethProxy);
+                var gethProxy = new GethRpcProxy(gethNodeUrl);
 
-                var accountBalance = await web3.Eth.GetBalanceAsync(addressFrom);
+                var accountBalance = await gethProxy.Eth.GetBalanceAsync(addressFrom);
 
-                if (!await web3.Personal.UnlockAccountAsync(addressFrom, password))
+                if (!await gethProxy.Personal.UnlockAccountAsync(addressFrom, password))
                 {
                     Console.WriteLine("ERROR : unable to unlock " + addressFrom);
                     return;
                 }
 
-                var accounts = await web3.Eth.GetAccountsAsync();
+                var accounts = await gethProxy.Eth.GetAccountsAsync();
                 //Console.WriteLine("ENTER to START MINING");
                 //Console.ReadLine();
                 //await web3.Miner_StartAsync();
 
-                var balance = await web3.Eth.GetBalanceAsync(addressFrom);
+                var balance = await gethProxy.Eth.GetBalanceAsync(addressFrom);
                 Console.WriteLine("INITIAL SENDER account balance is : " + balance);
 
-                balance = await web3.Eth.GetBalanceAsync(addressTo);
+                balance = await gethProxy.Eth.GetBalanceAsync(addressTo);
                 Console.WriteLine("INITIAL TARGET account balance is : " + balance);
 
                 string amount = "0x1000";
@@ -164,7 +180,7 @@ namespace EthereumWeb3ProtoClient
                     Value = amount,
                     Data = "" // NO specific contract ABI attached to the transaction 
                 };
-                var trxId = await web3.Eth.SendTransactionAsync(trx);
+                var trxId = await gethProxy.Eth.SendTransactionAsync(trx);
                 Console.WriteLine("Eth_SendTransaction: trxId :" + trxId);
 
                 TransactionReceipt receipt = null;
@@ -173,7 +189,7 @@ namespace EthereumWeb3ProtoClient
                 {
                     await Task.Delay(500);
                     Console.Write($"attempt #{++attempNum} to get receipt ..... \r");
-                    receipt = await web3.Eth.GetTransactionReceiptAsync(trxId);
+                    receipt = await gethProxy.Eth.GetTransactionReceiptAsync(trxId);
                     if (receipt!=null)
                     {
                         break;
@@ -181,29 +197,29 @@ namespace EthereumWeb3ProtoClient
                 }
                 Console.WriteLine(" trx receipt  = " + receipt);
 
-                balance = await web3.Eth.GetBalanceAsync(addressFrom);
+                balance = await gethProxy.Eth.GetBalanceAsync(addressFrom);
                 Console.WriteLine("SENDER account balance is : " + balance);
 
-                balance = await web3.Eth.GetBalanceAsync(addressTo);
+                balance = await gethProxy.Eth.GetBalanceAsync(addressTo);
                 Console.WriteLine("TARGET account balance is : " + balance);
 
                 Console.WriteLine();
 
                 Console.WriteLine($"Checking transaction by BlockNumber{receipt.BlockNumber}= TransactionIndex={receipt.TransactionIndex} : ");
-                var trxCheck = await web3.Eth.GetTransactionByBlockNumberAndIndexAsync(receipt.BlockNumber, receipt.TransactionIndex);
+                var trxCheck = await gethProxy.Eth.GetTransactionByBlockNumberAndIndexAsync(receipt.BlockNumber, receipt.TransactionIndex);
                 Console.WriteLine(trxCheck);
 
                 Console.WriteLine($"Checking transaction by BlockHash{receipt.BlockHash}= TransactionIndex={receipt.TransactionIndex} : ");
-                trxCheck = await web3.Eth.GetTransactionByBlockHashAndIndexAsync(receipt.BlockHash, receipt.TransactionIndex);
+                trxCheck = await gethProxy.Eth.GetTransactionByBlockHashAndIndexAsync(receipt.BlockHash, receipt.TransactionIndex);
                 Console.WriteLine(trxCheck);
 
 
                 Console.WriteLine($"Checking transaction by Hash={receipt.TransactionHash} : ");
-                trxCheck = await web3.Eth.GetTransactionByHashAsync(receipt.TransactionHash);
+                trxCheck = await gethProxy.Eth.GetTransactionByHashAsync(receipt.TransactionHash);
                 Console.WriteLine(trxCheck);
 
-                var b = web3.Eth.GetBlockByHashAsync(receipt.BlockHash,false);
-                var b1 = web3.Eth.GetBlockByNumberAsync(receipt.BlockNumber,false);
+                var b = gethProxy.Eth.GetBlockByHashAsync(receipt.BlockHash,false);
+                var b1 = gethProxy.Eth.GetBlockByNumberAsync(receipt.BlockNumber,false);
                 Console.WriteLine();
             }
             catch (JsonRpcException jex)
@@ -221,10 +237,10 @@ namespace EthereumWeb3ProtoClient
             Console.WriteLine("****** Running basic tests .....");
            
 
-            Uri web3NodeUrl = new Uri(GethEndpointUrl);
+            Uri gethNodeUrl = new Uri(GethEndpointUrl);
             string accountKeyPass = "password";
 
-            GethRpcProxy gethProxy = new GethRpcProxy(web3NodeUrl);
+            GethRpcProxy gethProxy = new GethRpcProxy(gethNodeUrl);
 
             try
             {
