@@ -47,6 +47,8 @@ namespace EthereumWeb3ProtoClient
                 Uri gethNodeUrl = new Uri(GethEndpointUrl);
                 var gethProxy = new GethRpcProxy(gethNodeUrl);
 
+                
+
             }
             catch (JsonRpcException jex)
             {

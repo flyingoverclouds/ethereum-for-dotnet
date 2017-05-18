@@ -8,5 +8,6 @@ namespace EthereumGethRpc.DataModel
 {
     public class PeerInfo
     {
+        // TODO : implement peetInfo
     }
 }
